@@ -8,7 +8,7 @@ x = str(random.random())
 comment = "#" + x + "\n"
 
 url = 'https://query.wikidata.org/sparql'
-query = '''SELECT DISTINCT ?lexemeId ?lemma ?catLabel WHERE {
+query = '''SELECT DISTINCT ?lemma WHERE {
   ?lexemeId dct:language wd:Q150;
             wikibase:lexicalCategory wd:Q34698;
             wikibase:lemma ?lemma.
