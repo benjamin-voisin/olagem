@@ -79,4 +79,8 @@ def random_verbe():
     return (jason["results"]["bindings"][0]["lemma"]["value"])
 
 
-print(random_nom() + " " + random_adj() + " " + random_verbe() + " " + random_nom() + " " + random_adj())
+def gener_phrase():
+    phrase = random_nom() + " " + random_adj() + " " + random_verbe() + " " + random_nom() + " " + random_adj() + "."
+    return phrase.capitalize()
+
+print(gener_phrase())
