@@ -26,25 +26,29 @@ int main() {
 
 	char* ligne = lire_ligne("text.txt");
 	int ch;
+	bool running = true;
+	int y, x;
 
 	initscr();			/* Start curses mode 		  */
 	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
 	noecho();
 
 	printw(ligne);
-	ch = getch();
-	if (ch == KEY_F(1)){
-		printw("T’as appuyé sur F1 fréro");
-	}
-	else{
-		printw("T'as appuye sur ");
-		attron(A_BOLD);
-		printw("%c", ch);
-		attroff(A_BOLD);
-	}
+	refresh();
+	while(running){
+		ch = getch();
+		if (ch == 127){
+			getyx(stdscr, y, x);
+			move(y, x-1);
+					addch(' ');
+					move(y,x-1);
+		}
+		else{
+			addch(ch);
+		}
 
-
-	refresh();			/* Print it on to the real screen */
+	refresh();		/* Print it on to the real screen */
+	}
 
 
 
