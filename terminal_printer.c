@@ -25,12 +25,30 @@ char* lire_ligne (const char* nom) {
 int main() {
 
 	char* ligne = lire_ligne("text.txt");
+	int ch;
 
 	initscr();			/* Start curses mode 		  */
 	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
 	noecho();
-	printw(ligne);	/* Print Hello World		  */
+
+	printw(ligne);
+	ch = getch();
+	if (ch == KEY_F(1)){
+		printw("T’as appuyé sur F1 fréro");
+	}
+	else{
+		printw("T'as appuye sur ");
+		attron(A_BOLD);
+		printw("%c", ch);
+		attroff(A_BOLD);
+	}
+
+
 	refresh();			/* Print it on to the real screen */
+
+
+
+
 	getch();			/* Wait for user input */
 	endwin();			/* End curses mode		  */
 
