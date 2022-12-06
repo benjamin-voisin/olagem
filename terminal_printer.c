@@ -25,23 +25,34 @@ char* lire_ligne (const char* nom) {
 int main() {
 
 	char* ligne = lire_ligne("text.txt");
-	int ch;
+	char ch;
 	bool running = true;
 	int y, x;
 
 	initscr();			/* Start curses mode 		  */
+	start_color();
+	if(has_colors() == FALSE){
+		endwin();
+		printf("Your terminal does not support color\n");
+		exit(1);
+	}
+	init_pair(1, COLOR_BLACK, COLOR_BLACK);
+	init_pair(2, COLOR_BLACK, COLOR_CYAN);
 	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
 	noecho();
 
 	printw(ligne);
 	refresh();
+	attron(COLOR_PAIR(2));
 	while(running){
 		ch = getch();
 		if (ch == 127){
 			getyx(stdscr, y, x);
+			attron(COLOR_PAIR(1));
 			move(y, x-1);
-					addch(' ');
-					move(y,x-1);
+			addch(' ');
+			move(y,x-1);
+			attrset(COLOR_PAIR(2));
 		}
 		else{
 			addch(ch);
