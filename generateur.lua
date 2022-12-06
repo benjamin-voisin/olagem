@@ -1,1 +1,1 @@
-text = "Hello, world !"
+text = "Ceci est un texte de demonstration.\n"
