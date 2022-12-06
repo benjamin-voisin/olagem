@@ -1,33 +1,16 @@
 #include <stdlib.h>
 #include <ncurses.h>
 
-/*
-char* lire_ligne (const char* nom) {
-	FILE * fichier;
-	fichier = fopen("text.txt", "r");
-	if (fichier == NULL) {
-		perror("fopen");
-		exit(1);
-	}
-	size_t taille_tampon = 32;
-	char * ligne = malloc(taille_tampon * sizeof(char));
-	if (ligne == NULL){
-		perror("malloc");
-		exit(1);
-	}
-	size_t taille_ligne;
-	taille_ligne = getline(&ligne, &taille_tampon, fichier);
-	fclose(fichier);
-	return ligne;
-
+void color_init(){
+	init_pair(1, COLOR_BLACK, COLOR_BLACK);
+	init_pair(2, COLOR_WHITE, COLOR_BLACK);
+	init_pair(3, COLOR_GREEN, COLOR_BLACK);
+	init_pair(4, COLOR_RED, COLOR_BLACK);
 }
-*/
 
 void start_screen(const char* text) {
 
-	// char* ligne = lire_ligne("text.txt");
 	char ch;
-	bool running = true;
 	int y, x;
 
 	initscr();			/* Start curses mode 		  */
@@ -37,15 +20,14 @@ void start_screen(const char* text) {
 		printf("Your terminal does not support color\n");
 		exit(1);
 	}
-	init_pair(1, COLOR_BLACK, COLOR_BLACK);
-	init_pair(2, COLOR_BLACK, COLOR_CYAN);
+	color_init();
 	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
-	noecho();
+	noecho();		// évite d’écrire les caractères qu’on tape (comme ça c’est nous qui gérons
 
 	printw(text);
 	refresh();
 	attron(COLOR_PAIR(2));
-	while(running){
+	while(1){
 		ch = getch();
 		if (ch == 127){
 			getyx(stdscr, y, x);
@@ -61,15 +43,6 @@ void start_screen(const char* text) {
 
 	refresh();		/* Print it on to the real screen */
 	}
-
-
-
-
-	getch();			/* Wait for user input */
-	endwin();			/* End curses mode		  */
-
-	//free(ligne);
-
 
 }
 
