@@ -23,7 +23,7 @@ char* lire_ligne (const char* nom) {
 }
 */
 
-void start_screen(char* text) {
+void start_screen(const char* text) {
 
 	// char* ligne = lire_ligne("text.txt");
 	char ch;
