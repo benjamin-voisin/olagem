@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 
+/*
 char* lire_ligne (const char* nom) {
 	FILE * fichier;
 	fichier = fopen("text.txt", "r");
@@ -20,11 +21,11 @@ char* lire_ligne (const char* nom) {
 	return ligne;
 
 }
+*/
 
+void start_screen(char* text) {
 
-int main() {
-
-	char* ligne = lire_ligne("text.txt");
+	// char* ligne = lire_ligne("text.txt");
 	char ch;
 	bool running = true;
 	int y, x;
@@ -41,7 +42,7 @@ int main() {
 	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
 	noecho();
 
-	printw(ligne);
+	printw(text);
 	refresh();
 	attron(COLOR_PAIR(2));
 	while(running){
@@ -67,9 +68,9 @@ int main() {
 	getch();			/* Wait for user input */
 	endwin();			/* End curses mode		  */
 
-	free(ligne);
+	//free(ligne);
 
 
-	return 0;
 }
+
 

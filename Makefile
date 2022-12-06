@@ -1,9 +1,9 @@
-main: main.c
-	gcc -o main main.c -llua
+main: main.c terminal_printer.o
+	gcc -o main -llua -lncurses main.c terminal_printer.o 
 
-t_printer: terminal_printer.c
-	gcc -o printer terminal_printer.c -lncurses
+terminal_printer.o: terminal_printer.c terminal_printer.h
+	cc -c -lncurses terminal_printer.c 
 
 
 clean:
-	rm *.out
+	rm *.o

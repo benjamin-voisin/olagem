@@ -2,6 +2,12 @@
 #include "lualib.h"
 #include "lauxlib.h"
 
+#include "terminal_printer.h"
+
+// Dans ce fichier, je dois :
+// récupérer le texte généré par notre truc lua, formatté en un tableau de char*. Dans chaque case, une phase.
+// envoyer ce text dans notre programme de terminal printing qui va afficher le bouzin, et totu comparer.
+
 int main(){
 	
 	// Initialize the state
@@ -17,7 +23,7 @@ int main(){
 	}
 	else{
 		const char* text = lua_tolstring(L, -1,NULL);
-		printf("%s\n", text);
+		start_screen(text);
 	}
 
 	return 1;
