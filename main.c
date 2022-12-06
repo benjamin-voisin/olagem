@@ -8,23 +8,29 @@
 // récupérer le texte généré par notre truc lua, formatté en un tableau de char*. Dans chaque case, une phase.
 // envoyer ce text dans notre programme de terminal printing qui va afficher le bouzin, et totu comparer.
 
-int main(){
-	
+
+const char* get_text(char* fichier){
 	// Initialize the state
 	lua_State *L = luaL_newstate();
 	// load the librairies
 	luaL_openlibs(L);
 	// do file
-	luaL_dofile(L,"generateur.lua");
+	luaL_dofile(L,fichier);
 
 	lua_getglobal(L, "text");
+
 	if (lua_isnil(L,-1)){
-		printf("Cette variable n’est pas définie dans le code lua!\n");
+		printf("Cette variable n’est pas définie dans le code lua !\n");
 	}
 	else{
-		const char* text = lua_tolstring(L, -1,NULL);
-		start_screen(text);
+		const char* text = lua_tolstring(L, -1, NULL);
+		return text;
 	}
+}
+
+int main(){
+	const char* text = get_text("generateur.lua");
+	start_screen(text);
 
 	return 1;
 }
