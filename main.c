@@ -1,6 +1,7 @@
 #include "lua.h"
 #include "lualib.h"
 #include "lauxlib.h"
+#include "locale.h"
 
 #include "terminal_printer.h"
 
@@ -10,6 +11,7 @@
 
 
 const char* get_text(char* fichier){
+
 	// Initialize the state
 	lua_State *L = luaL_newstate();
 	// load the librairies
@@ -29,6 +31,7 @@ const char* get_text(char* fichier){
 }
 
 int main(){
+	setlocale(LC_CTYPE,"");
 	const char* text = get_text("generateur.lua");
 	start_screen(text);
 
