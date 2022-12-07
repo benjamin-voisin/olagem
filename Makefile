@@ -9,4 +9,4 @@ terminal_printer.o: terminal_printer.c terminal_printer.h
 
 clean:
 	rm *.o
-	rm olagém
+	rm olagem

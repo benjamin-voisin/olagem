@@ -14,6 +14,8 @@ void color_init(){
 
 void start_screen(const char* text) {
 
+	char * phrase;
+
 
 	uint8_t ch;
 	int y, x;
