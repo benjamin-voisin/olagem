@@ -1,7 +1,10 @@
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-#include "locale.h"
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "terminal_printer.h"
 
@@ -30,7 +33,7 @@ const char* get_text(char* fichier){
 	}
 }
 
-int main(){
+int main(int argc, char * argv[]){
 	setlocale(LC_CTYPE,"");
 	const char* text = get_text("generateur.lua");
 	start_screen(text);

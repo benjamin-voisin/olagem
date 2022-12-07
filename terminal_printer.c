@@ -1,5 +1,9 @@
 #include <stdlib.h>
 #include <ncurses.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 void color_init(){
 	init_pair(1, COLOR_BLACK, COLOR_BLACK);
@@ -10,7 +14,8 @@ void color_init(){
 
 void start_screen(const char* text) {
 
-	char ch;
+
+	uint8_t ch;
 	int y, x;
 
 	initscr();			/* Start curses mode 		  */
