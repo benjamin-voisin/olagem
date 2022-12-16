@@ -27,7 +27,8 @@ void init(){
 	noecho();		// évite d’écrire les caractères qu’on tape (comme ça c’est nous qui gérons
 }
 
-void suppr(int x,int y){
+void suppr(){
+	int x, y;
 	getyx(stdscr, y, x);
 	attron(COLOR_PAIR(1));
 	move(y, x-1);
@@ -36,7 +37,7 @@ void suppr(int x,int y){
 	attrset(COLOR_PAIR(2));
 }
 
-void start_screen(const char* text) {
+void start_screen(const uint8_t* text) {
 
 
 	uint8_t phrase[strlen(text)];
@@ -55,7 +56,7 @@ void start_screen(const char* text) {
 	while(1){
 		ch = getch();
 		if (ch == 127){
-			suppr(x,y);
+			suppr();
 			indice --;
 			phrase[indice] = '\0';
 		}
@@ -67,7 +68,7 @@ void start_screen(const char* text) {
 				text ++;
 			}
 			else {
-				printw("raté");
+				attron(COLOR_PAIR(4));
 			}
 		}
 

@@ -28,7 +28,7 @@ const char* get_text(char* fichier){
 		printf("Cette variable n’est pas définie dans le code lua !\n");
 	}
 	else{
-		const char* text = lua_tolstring(L, -1, NULL);
+		const uint8_t* text = lua_tolstring(L, -1, NULL);
 		return text;
 	}
 }
