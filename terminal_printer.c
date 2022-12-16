@@ -37,6 +37,23 @@ void suppr(){
 	attrset(COLOR_PAIR(2));
 }
 
+void failed(){
+	uint8_t ch;
+	int i = 1;
+	while (i > 0){
+		ch = getch();
+		if (ch == 127){
+			suppr();
+			i --;
+		}
+		else{
+			i ++;
+			addch(ch);
+		}
+	}
+
+}
+
 void start_screen(const uint8_t* text) {
 
 
@@ -69,6 +86,7 @@ void start_screen(const uint8_t* text) {
 			}
 			else {
 				attron(COLOR_PAIR(4));
+				failed();
 			}
 		}
 
