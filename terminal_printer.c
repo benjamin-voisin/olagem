@@ -18,6 +18,7 @@ void color_init(){
 	init_pair(2, COLOR_WHITE, COLOR_BLACK);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
 	init_pair(4, COLOR_RED, COLOR_BLACK);
+	init_pair(5, COLOR_RED, COLOR_RED);
 }
 
 void init(){
@@ -38,6 +39,10 @@ void suppr(){
 }
 
 void failed(){
+	int x, y;
+	getyx(stdscr, y, x);
+	mvchgat(y, x-1,1, COLOR_PAIR(5),1, NULL);
+	move (y, x);
 	uint8_t ch;
 	int i = 1;
 	while (i > 0){
@@ -70,7 +75,7 @@ void start_screen(const uint8_t* text) {
 	printw(text);
 	refresh();
 	attron(COLOR_PAIR(2));
-	while(1){
+	while(*text != '\n'){
 		ch = getch();
 		if (ch == 127){
 			suppr();
@@ -87,11 +92,13 @@ void start_screen(const uint8_t* text) {
 			else {
 				attron(COLOR_PAIR(4));
 				failed();
+				attroff(COLOR_PAIR(4));
 			}
 		}
 
 	refresh();		/* Print it on to the real screen */
 	}
+	endwin();
 
 }
 
