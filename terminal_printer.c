@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdio.h>
 
+
+
 void color_init(){
 	start_color();
 	if(has_colors() == FALSE){
@@ -16,6 +18,13 @@ void color_init(){
 	init_pair(2, COLOR_WHITE, COLOR_BLACK);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
 	init_pair(4, COLOR_RED, COLOR_BLACK);
+}
+
+void init(){
+	initscr();			/* Start curses mode 		  */
+	color_init();
+	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
+	noecho();		// évite d’écrire les caractères qu’on tape (comme ça c’est nous qui gérons
 }
 
 void suppr(int x,int y){
@@ -36,23 +45,30 @@ void start_screen(const char* text) {
 	uint8_t ch;
 	int y, x;
 
-	initscr();			/* Start curses mode 		  */
-	color_init();
-	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
-	noecho();		// évite d’écrire les caractères qu’on tape (comme ça c’est nous qui gérons
+	init();
+	x = 0;
+	y = 2;
 
 	printw(text);
-	addch(phrase[indice]);
-	addch(*text);
 	refresh();
 	attron(COLOR_PAIR(2));
 	while(1){
 		ch = getch();
 		if (ch == 127){
 			suppr(x,y);
-					}
+			indice --;
+			phrase[indice] = '\0';
+		}
 		else{
 			addch(ch);
+			indice ++;
+			phrase[indice] = ch;
+			if (ch == *text){ 
+				text ++;
+			}
+			else {
+				printw("raté");
+			}
 		}
 
 	refresh();		/* Print it on to the real screen */
