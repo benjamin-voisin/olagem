@@ -19,6 +19,7 @@ void color_init(){
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
 	init_pair(4, COLOR_RED, COLOR_BLACK);
 	init_pair(5, COLOR_RED, COLOR_RED);
+	init_pair(6, COLOR_WHITE, COLOR_WHITE);
 }
 
 void init(){
@@ -26,6 +27,15 @@ void init(){
 	color_init();
 	cbreak(); 		/* supprime le buffer du terminal pour avoir les caractères instant */
 	noecho();		// évite d’écrire les caractères qu’on tape (comme ça c’est nous qui gérons
+}
+
+void make_cursor(){
+	int x, y;
+	getyx(stdscr, y, x);
+	attron(COLOR_PAIR(6));
+	addch(' ');
+	attroff(COLOR_PAIR(6));
+	move(y,x);
 }
 
 void suppr(){
@@ -36,11 +46,11 @@ void suppr(){
 	addch(' ');
 	move(y,x-1);
 	attrset(COLOR_PAIR(2));
+	make_cursor();
 }
 
+
 void failed(uint8_t ch){
-	int x, y;
-	getyx(stdscr, y, x);
 	attron(COLOR_PAIR(4));
 	addch(ch);
 	int i = 1;
@@ -63,26 +73,26 @@ void start_screen(const uint8_t* text) {
 
 
 	uint8_t ch;
-	int y, x;
 
 	init();
-	x = 0;
-	y = 2;
 
 	printw(text);
+	move(2,0);
 	refresh();
 	attron(COLOR_PAIR(2));
 	while(*text != '\n'){
 		ch = getch();
 		if (ch == 127){
 			suppr();
+			text --;
 		}
 		else{
+			addch(ch);
 			if (ch == *text){ 
-				addch(ch);
 				text ++;
 			}
 			else {
+				suppr();
 				attron(COLOR_PAIR(4));
 				failed(ch);
 				attroff(COLOR_PAIR(4));
