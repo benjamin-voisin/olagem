@@ -38,12 +38,11 @@ void suppr(){
 	attrset(COLOR_PAIR(2));
 }
 
-void failed(){
+void failed(uint8_t ch){
 	int x, y;
 	getyx(stdscr, y, x);
-	mvchgat(y, x-1,1, COLOR_PAIR(5),1, NULL);
-	move (y, x);
-	uint8_t ch;
+	attron(COLOR_PAIR(4));
+	addch(ch);
 	int i = 1;
 	while (i > 0){
 		ch = getch();
@@ -62,8 +61,6 @@ void failed(){
 void start_screen(const uint8_t* text) {
 
 
-	uint8_t phrase[strlen(text)];
-	int indice = 0;
 
 	uint8_t ch;
 	int y, x;
@@ -79,19 +76,15 @@ void start_screen(const uint8_t* text) {
 		ch = getch();
 		if (ch == 127){
 			suppr();
-			indice --;
-			phrase[indice] = '\0';
 		}
 		else{
-			addch(ch);
-			indice ++;
-			phrase[indice] = ch;
 			if (ch == *text){ 
+				addch(ch);
 				text ++;
 			}
 			else {
 				attron(COLOR_PAIR(4));
-				failed();
+				failed(ch);
 				attroff(COLOR_PAIR(4));
 			}
 		}
