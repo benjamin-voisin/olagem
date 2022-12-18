@@ -1,3 +1,7 @@
-## Description du projet
+## Project description
 
-L’objectif de ce programme est de créer un générateur de phrases françaises (un minimum) censé, et correcte syntaxiquement. À termes, ceci sera utilisé pour construire un équivalent de 10fastfingers, mais en mieux (puisque des vrais phrases générés aléatoirement au lieu de mots randoms).
+This program is heavily inspired by the website 10FastFingers, wich provides an easy typing speed test. However, you just type random words. So the goal is to make a sentence generator in order to improve this.
+
+## State of the project
+
+Far from finished. I'm just about finishing the "game" part. The sentence generator is far from done.
