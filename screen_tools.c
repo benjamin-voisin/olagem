@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <locale.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
 
 void color_init(){
