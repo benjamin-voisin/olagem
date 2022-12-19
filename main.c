@@ -22,12 +22,13 @@ const char* get_text(char* fichier){
 	// do file
 	luaL_dofile(L,fichier);
 
-	lua_getglobal(L, "text");
+	lua_getglobal(L, "sentence_generator");
 
 	if (lua_isnil(L,-1)){
 		printf("Cette variable n’est pas définie dans le code lua !\n");
 	}
 	else{
+		lua_pcall(L, 0, 1, 0);
 		const uint8_t* text = lua_tolstring(L, -1, NULL);
 		return text;
 	}
@@ -35,8 +36,11 @@ const char* get_text(char* fichier){
 
 int main(int argc, char * argv[]){
 	setlocale(LC_CTYPE,"");
-	const char* text = get_text("generateur.lua");
-	start_screen(text);
+	while(1){
+
+		const uint8_t* text = get_text("generateur.lua");
+		start_screen(text);
+	}
 
 	return 1;
 }

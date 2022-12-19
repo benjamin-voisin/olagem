@@ -33,6 +33,7 @@ void start_screen(const uint8_t* text) {
 
 	init();
 
+	move(0,0);
 	printw(text);
 	move(2,0);
 	refresh();
