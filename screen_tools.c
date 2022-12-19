@@ -35,3 +35,14 @@ void make_cursor(){
 	attroff(COLOR_PAIR(6));
 	move(y,x);
 }
+
+void suppr(){
+	int x, y;
+	getyx(stdscr, y, x);
+	attron(COLOR_PAIR(1));
+	move(y, x-1);
+	addch(' ');
+	move(y,x-1);
+	attrset(COLOR_PAIR(2));
+	make_cursor();
+}

@@ -6,16 +6,6 @@
 
 #include "screen_tools.h"
 
-void suppr(){
-	int x, y;
-	getyx(stdscr, y, x);
-	attron(COLOR_PAIR(1));
-	move(y, x-1);
-	addch(' ');
-	move(y,x-1);
-	attrset(COLOR_PAIR(2));
-	make_cursor();
-}
 
 
 void failed(uint8_t ch){
@@ -37,7 +27,6 @@ void failed(uint8_t ch){
 }
 
 void start_screen(const uint8_t* text) {
-
 
 
 	uint8_t ch;
