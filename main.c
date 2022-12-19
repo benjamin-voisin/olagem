@@ -40,6 +40,7 @@ int main(int argc, char * argv[]){
 
 		const uint8_t* text = get_text("generateur.lua");
 		start_screen(text);
+		clear();
 	}
 
 	return 1;
