@@ -29,6 +29,7 @@ void failed(uint8_t ch){
 void start_screen(const uint8_t* text) {
 
 
+	int y, x;
 	uint8_t ch;
 
 	init();
@@ -41,8 +42,10 @@ void start_screen(const uint8_t* text) {
 	while(*text != '\n'){
 		ch = getch();
 		if (ch == 127){
+			if (is_not_first_caracter()) {
 			suppr();
 			text --;
+			}
 		}
 		else{
 			addch(ch);

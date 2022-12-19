@@ -46,3 +46,9 @@ void suppr(){
 	attrset(COLOR_PAIR(2));
 	make_cursor();
 }
+
+bool is_not_first_caracter(){
+	int y, x;
+	getyx(stdscr, y, x);
+	return (x != 0);
+}
