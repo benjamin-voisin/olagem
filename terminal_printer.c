@@ -20,6 +20,7 @@ void failed(uint8_t ch){
 		}
 		else{
 			i ++;
+			attron(COLOR_PAIR(4));
 			addch(ch);
 		}
 	refresh();

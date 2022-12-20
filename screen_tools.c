@@ -43,7 +43,7 @@ void suppr(){
 	move(y, x-1);
 	addch(' ');
 	move(y,x-1);
-	attrset(COLOR_PAIR(2));
+	attroff(COLOR_PAIR(1));
 	make_cursor();
 }
 
