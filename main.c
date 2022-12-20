@@ -8,6 +8,7 @@
 #include <time.h>
 
 #include "terminal_printer.h"
+#include "endscreen.h"
 
 // Dans ce fichier, je dois :
 // récupérer le texte généré par notre truc lua, formatté en un tableau de char*. Dans chaque case, une phase.
@@ -48,8 +49,8 @@ int main(int argc, char * argv[]){
 		const uint8_t* text = get_text("generateur.lua");
 		number_of_words += start_screen(text);
 		clear();
+		end_screen(number_of_words, time(NULL) - start_time);
 	}
-	printf("Vous avez tapé %d caractères en %ld secondes", number_of_words, actual_time - start_time); 
 
 	return 1;
 }
