@@ -27,7 +27,7 @@ const uint8_t* get_text(char* fichier){
 	lua_getglobal(L, "sentence_generator");
 
 	if (lua_isnil(L,-1)){
-		printf("Cette variable n’est pas définie dans le code lua !\n");
+		printf("This variable is not defined in the lua codThis variable is not defined in the lua coden");
 		return NULL;
 	}
 	else{

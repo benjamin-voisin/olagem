@@ -11,7 +11,7 @@ bool end_screen(int number_of_words, long int time){
 	clear();
 	init();
 	uint8_t ch;
-	printw("Vous avez tapé %d caractères en %ld secondes\n\n", number_of_words, time); 
+	printw("You have typed %d caracteres in %ld seconds\n\n", number_of_words, time); 
 	printw("Press any key to restart the game. Press q to quit");
 	ch = getch();
 	clear();
