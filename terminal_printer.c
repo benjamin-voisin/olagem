@@ -22,6 +22,7 @@ void failed(uint8_t ch){
 			i ++;
 			addch(ch);
 		}
+	refresh();
 	}
 
 }
