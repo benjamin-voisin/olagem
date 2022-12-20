@@ -26,11 +26,10 @@ void failed(uint8_t ch){
 
 }
 
-void start_screen(const uint8_t* text) {
+int start_screen(const uint8_t* text) {
 
-
-	int y, x;
 	uint8_t ch;
+	int i = 0;
 
 	init();
 
@@ -45,12 +44,14 @@ void start_screen(const uint8_t* text) {
 			if (is_not_first_caracter()) {
 			suppr();
 			text --;
+			i --;
 			}
 		}
 		else{
 			addch(ch);
 			if (ch == *text){ 
 				text ++;
+				i ++;
 			}
 			else {
 				suppr();
@@ -63,6 +64,7 @@ void start_screen(const uint8_t* text) {
 	refresh();		/* Print it on to the real screen */
 	}
 	endwin();
+	return i;
 
 }
 

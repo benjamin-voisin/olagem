@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "terminal_printer.h"
 
@@ -13,7 +14,7 @@
 // envoyer ce text dans notre programme de terminal printing qui va afficher le bouzin, et totu comparer.
 
 
-const char* get_text(char* fichier){
+const uint8_t* get_text(char* fichier){
 
 	// Initialize the state
 	lua_State *L = luaL_newstate();
@@ -26,6 +27,7 @@ const char* get_text(char* fichier){
 
 	if (lua_isnil(L,-1)){
 		printf("Cette variable n’est pas définie dans le code lua !\n");
+		return NULL;
 	}
 	else{
 		lua_pcall(L, 0, 1, 0);
@@ -36,12 +38,18 @@ const char* get_text(char* fichier){
 
 int main(int argc, char * argv[]){
 	setlocale(LC_CTYPE,"");
-	while(1){
+
+	time_t start_time = time(NULL);
+	time_t actual_time;
+	int number_of_words = 0;
+
+	while(((actual_time = time(NULL)) - start_time) < 10){
 
 		const uint8_t* text = get_text("generateur.lua");
-		start_screen(text);
+		number_of_words += start_screen(text);
 		clear();
 	}
+	printf("Vous avez tapé %d caractères en %ld secondes", number_of_words, actual_time - start_time); 
 
 	return 1;
 }
