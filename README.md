@@ -4,8 +4,7 @@ This program is heavily inspired by the website 10FastFingers, wich provides an 
 
 ## State of the project
 
-Far from finished. I'm just about finishing the "game" part. The sentence generator is far from done.
-
+The first version of the typing part is good. Now we just need a good generator.
 
 ## Dependencies
 
