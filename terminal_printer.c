@@ -36,11 +36,12 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence) 
 
 	move(0,0);
 	printw(first_sentence);
+	printw("\n");
 	printw(second_sentence);
 	move(3,0);
 	refresh();
 	attron(COLOR_PAIR(2));
-	while(*first_sentence != '\n'){
+	while(*first_sentence != '\0'){
 		ch = getch();
 		if (ch == 127){
 			if (is_not_first_caracter()) {

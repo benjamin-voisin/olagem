@@ -13,7 +13,7 @@ function sentence_generator()
 	complements.taille = 4
 	adjectifs2 = {"nouveau", "gris", "moelleux", "agressif"}
 	adjectifs2.taille = 4
-	phrase = noms[math.random(noms.taille)].." "..adjectifs1[math.random(adjectifs1.taille)].." "..verbes[math.random(verbes.taille)].." "..complements[math.random(complements.taille)].." "..adjectifs2[math.random(adjectifs2.taille)]..".\n"
+	phrase = noms[math.random(noms.taille)].." "..adjectifs1[math.random(adjectifs1.taille)].." "..verbes[math.random(verbes.taille)].." "..complements[math.random(complements.taille)].." "..adjectifs2[math.random(adjectifs2.taille)].."."
 	return phrase
 end
 
