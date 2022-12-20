@@ -26,7 +26,7 @@ void failed(uint8_t ch){
 
 }
 
-int start_screen(const uint8_t* text) {
+int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence) {
 	clear();
 
 	uint8_t ch;
@@ -35,23 +35,24 @@ int start_screen(const uint8_t* text) {
 	init();
 
 	move(0,0);
-	printw(text);
-	move(2,0);
+	printw(first_sentence);
+	printw(second_sentence);
+	move(3,0);
 	refresh();
 	attron(COLOR_PAIR(2));
-	while(*text != '\n'){
+	while(*first_sentence != '\n'){
 		ch = getch();
 		if (ch == 127){
 			if (is_not_first_caracter()) {
 			suppr();
-			text --;
+			first_sentence --;
 			i --;
 			}
 		}
 		else{
 			addch(ch);
-			if (ch == *text){ 
-				text ++;
+			if (ch == *first_sentence){ 
+				first_sentence ++;
 				i ++;
 			}
 			else {
