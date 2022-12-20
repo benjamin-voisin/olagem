@@ -40,16 +40,19 @@ const uint8_t* get_text(char* fichier){
 int main(int argc, char * argv[]){
 	setlocale(LC_CTYPE,"");
 
-	time_t start_time = time(NULL);
-	time_t actual_time;
-	int number_of_words = 0;
+	bool restart = true;
 
-	while(((actual_time = time(NULL)) - start_time) < 10){
+	while (restart){
+		time_t start_time = time(NULL);
+		time_t actual_time;
+		int number_of_words = 0;
+		while(((actual_time = time(NULL)) - start_time) < 10){
 
-		const uint8_t* text = get_text("generateur.lua");
-		number_of_words += start_screen(text);
-		clear();
-		end_screen(number_of_words, time(NULL) - start_time);
+			const uint8_t* text = get_text("generateur.lua");
+			number_of_words += start_screen(text);
+			clear();
+		}
+		restart = end_screen(number_of_words, time(NULL) - start_time);
 	}
 
 	return 1;

@@ -27,6 +27,7 @@ void failed(uint8_t ch){
 }
 
 int start_screen(const uint8_t* text) {
+	clear();
 
 	uint8_t ch;
 	int i = 0;

@@ -5,6 +5,21 @@
 #include <string.h>
 #include <stdio.h>
 
-void end_screen(int number_of_words, long int time){
-	printf("Vous avez tapé %d caractères en %ld secondes", number_of_words, time); 
+#include "screen_tools.h"
+
+bool end_screen(int number_of_words, long int time){
+	clear();
+	init();
+	uint8_t ch;
+	printw("Vous avez tapé %d caractères en %ld secondes\n\n", number_of_words, time); 
+	printw("Press any key to restart the game. Press q to quit");
+	ch = getch();
+	clear();
+	endwin();
+	if (ch == 'q'){
+		return false;
+	}
+	else {
+		return true;
+	}
 }	
