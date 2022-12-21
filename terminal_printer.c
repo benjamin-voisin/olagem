@@ -68,7 +68,6 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence) 
 
 	refresh();		/* Print it on to the real screen */
 	}
-	endwin();
 	return i;
 
 }

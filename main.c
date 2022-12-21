@@ -60,6 +60,7 @@ int main(int argc, char * argv[]){
 		restart = end_screen(number_of_words, time(NULL) - start_time);
 	}
 	lua_close(L);
+	endwin();
 
 	return 1;
 }

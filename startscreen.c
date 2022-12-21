@@ -7,5 +7,4 @@ void startscreen(void){
 	clear();
 	printw("oui");
 	char ch = getch();
-	endwin();
 }

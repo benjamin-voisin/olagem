@@ -15,7 +15,6 @@ bool end_screen(int number_of_caracteres, long int time){
 		ch = getch();
 	}
 	clear();
-	endwin();
 	if (ch == 'q'){
 		return false;
 	}
