@@ -1,9 +1,4 @@
-
-#include <stdlib.h>
 #include <ncurses.h>
-#include <locale.h>
-#include <string.h>
-#include <stdio.h>
 
 #include "screen_tools.h"
 
