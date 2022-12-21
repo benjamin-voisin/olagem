@@ -9,6 +9,7 @@
 
 #include "terminal_printer.h"
 #include "endscreen.h"
+#include "startscreen.h"
 
 // Dans ce fichier, je dois :
 // récupérer le texte généré par notre truc lua, formatté en un tableau de char*. Dans chaque case, une phase.
@@ -40,6 +41,8 @@ int main(int argc, char * argv[]){
 	lua_State *L = init_lua("generateur.lua");
 
 	bool restart = true;
+
+	startscreen();
 
 	while (restart){
 		const uint8_t* first_sentence = get_text(L);
