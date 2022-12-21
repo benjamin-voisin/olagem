@@ -10,6 +10,7 @@
 #include "terminal_printer.h"
 #include "endscreen.h"
 #include "startscreen.h"
+#include "settings.h"
 
 // Dans ce fichier, je dois :
 // récupérer le texte généré par notre truc lua, formatté en un tableau de char*. Dans chaque case, une phase.
@@ -42,6 +43,8 @@ int main(int argc, char * argv[]){
 
 	bool restart = true;
 
+	long int maximal_time = max_time();
+
 	startscreen();
 
 	while (restart){
@@ -50,7 +53,7 @@ int main(int argc, char * argv[]){
 		time_t start_time = time(NULL);
 		time_t actual_time;
 		int number_of_words = 0;
-		while(((actual_time = time(NULL)) - start_time) < 20){
+		while(((actual_time = time(NULL)) - start_time) < maximal_time){
 
 			number_of_words += start_screen(first_sentence, second_sentence);
 			clear();
