@@ -52,15 +52,15 @@ int main(int argc, char * argv[]){
 		const uint8_t* second_sentence = get_text(L);
 		time_t start_time = time(NULL);
 		time_t actual_time;
-		int number_of_words = 0;
+		long int number_of_caractere = 0;
 		while(((actual_time = time(NULL)) - start_time) < maximal_time){
 
-			number_of_words += start_screen(first_sentence, second_sentence);
+			number_of_caractere += start_screen(first_sentence, second_sentence);
 			clear();
 			first_sentence = second_sentence;
 			second_sentence = get_text(L);
 		}
-		restart = end_screen(number_of_words, time(NULL) - start_time);
+		restart = end_screen(number_of_caractere, time(NULL) - start_time);
 	}
 	lua_close(L);
 	endwin();

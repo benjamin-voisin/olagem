@@ -2,7 +2,7 @@
 
 #include "screen_tools.h"
 
-bool end_screen(int number_of_caracteres, long int time){
+bool end_screen(long int number_of_caracteres, long int time){
 	clear();
 	uint8_t ch;
 	long int number_of_words = (number_of_caracteres/4) * (60/time);
