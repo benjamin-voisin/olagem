@@ -74,7 +74,6 @@ int main (int argc, char * argv[]){
 	while(1){
 		if (state == 0){ // 0 state is the start_screen
 			startscreen();
-			char ch = getch();
 			state = 1;
 		}
 		if (state == 1){ // 1 state is the actual game
