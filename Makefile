@@ -21,4 +21,3 @@ settings.o: settings.c settings.h
 
 clean:
 	rm *.o
-	rm olagem
