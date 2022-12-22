@@ -1,0 +1,10 @@
+= Wiki du projet olagem =
+
+== Chose à faire ==
+
+	* Surligner en rouge le mot courrant quand on a raté
+	* Permetter d’ajuster les paramètres (création d’un fichier settings.txt)
+	* Permette de modifier les paramètres dans le start screen (création d’un menu "paramètres" avec un nouvel écran)
+	* Enregistrement de toutes les parties
+	* Affichage des datas (graphique)
+	* [[test]]
