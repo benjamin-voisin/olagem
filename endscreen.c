@@ -2,7 +2,7 @@
 
 #include "screen_tools.h"
 
-bool end_screen(long int number_of_caracteres, long int time){
+int end_screen(long int number_of_caracteres, long int time){
 	clear();
 	uint8_t ch;
 	long int number_of_words;
@@ -18,9 +18,9 @@ bool end_screen(long int number_of_caracteres, long int time){
 	}
 	clear();
 	if (ch == 'q'){
-		return false;
+		return 10;
 	}
 	else {
-		return true;
+		return 1;
 	}
 }	

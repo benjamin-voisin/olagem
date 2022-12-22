@@ -12,10 +12,6 @@
 #include "startscreen.h"
 #include "settings.h"
 
-// Dans ce fichier, je dois :
-// récupérer le texte généré par notre truc lua, formatté en un tableau de char*. Dans chaque case, une phase.
-// envoyer ce text dans notre programme de terminal printing qui va afficher le bouzin, et totu comparer.
-
 
 lua_State * init_lua(char* fichier){
 
@@ -37,7 +33,7 @@ const uint8_t* get_text(lua_State* L){
 	return text;
 }
 
-int main(int argc, char * argv[]){
+int old_main(int argc, char * argv[]){
 	setlocale(LC_CTYPE,"");
 	lua_State *L = init_lua("generateur.lua");
 
@@ -66,4 +62,45 @@ int main(int argc, char * argv[]){
 	endwin();
 
 	return 1;
+}
+
+int main (int argc, char * argv[]){
+	setlocale(LC_CTYPE,"");
+	lua_State *L = init_lua("generateur.lua");
+	int state = 0;
+	time_t start_time = time(NULL);
+	long int number_of_caractere = 0;
+
+	while(1){
+		if (state == 0){ // 0 state is the start_screen
+			startscreen();
+			char ch = getch();
+			state = 1;
+		}
+		if (state == 1){ // 1 state is the actual game
+			number_of_caractere = 0;
+			start_time = time(NULL);
+			long int maximal_time = max_time();
+			const uint8_t* first_sentence = get_text(L);
+			const uint8_t* second_sentence = get_text(L);
+			time_t actual_time;
+			while(((actual_time = time(NULL)) - start_time) < maximal_time){
+
+				number_of_caractere += start_screen(first_sentence, second_sentence);
+				clear();
+				first_sentence = second_sentence;
+				second_sentence = get_text(L);
+			}					
+			state = 2;
+		}
+		if (state == 2){ // 2 state is the end_screen
+			state = end_screen(number_of_caractere, time(NULL) - start_time);
+		}
+		if (state == 10){ // 10 is the end of the game
+			lua_close(L);
+			endwin();
+			return 1;
+	}
+	return 1;
+	}
 }
