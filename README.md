@@ -14,7 +14,7 @@ This project currently needs lua to run (made in lua 5.3 but supposedly works in
 
 Wherever you want, clone this git repo using the command
 ```
-git clone https://github.com/Vneb23/olagem
+git clone https://github.com/Vneb23/olagem.git
 ```
 
 If you don't have lua installed, you would need to install it. Go to lua.org for more information.
