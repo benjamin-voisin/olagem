@@ -1,7 +1,10 @@
 default: olagem
 
-olagem: main.c terminal_printer.o screen_tools.o endscreen.o startscreen.o settings.o
-	gcc -g -o olagem -llua -lncursesw main.c terminal_printer.o screen_tools.o endscreen.o startscreen.o settings.o
+olagem: main.o terminal_printer.o screen_tools.o endscreen.o startscreen.o settings.o
+	gcc -g -llua -lncursesw main.o terminal_printer.o screen_tools.o endscreen.o startscreen.o settings.o -o olagem 
+
+main.o: main.c
+	gcc -c -lncursesw main.c
 
 
 terminal_printer.o: terminal_printer.c terminal_printer.h
