@@ -100,6 +100,8 @@ int main (int argc, char * argv[]){
 			endwin();
 			return 1;
 	}
-	return 1;
 	}
+
+	return 1;
+
 }
