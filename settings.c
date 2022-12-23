@@ -18,5 +18,6 @@ long int max_time(){
 		time_char[i] = letter;
 		i ++;
 	}
+	fclose(fichier);
 	return (atoi(time_char));
 }
