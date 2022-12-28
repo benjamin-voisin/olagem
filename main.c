@@ -60,7 +60,6 @@ int old_main(int argc, char * argv[]){
 	}
 	lua_close(L);
 	endwin();
-
 	return 1;
 }
 
@@ -72,33 +71,40 @@ int main (int argc, char * argv[]){
 	long int number_of_caractere = 0;
 
 	while(1){
-		if (state == 0){ // 0 state is the start_screen
-			startscreen();
-			state = 1;
-		}
-		if (state == 1){ // 1 state is the actual game
-			number_of_caractere = 0;
-			start_time = time(NULL);
-			long int maximal_time = max_time();
-			const uint8_t* first_sentence = get_text(L);
-			const uint8_t* second_sentence = get_text(L);
-			time_t actual_time;
-			while(((actual_time = time(NULL)) - start_time) < maximal_time){
+		switch(state){
+			case 0 :
+				state = startscreen();
 
-				number_of_caractere += start_screen(first_sentence, second_sentence);
-				clear();
-				first_sentence = second_sentence;
-				second_sentence = get_text(L);
-			}					
-			state = 2;
-		}
-		if (state == 2){ // 2 state is the end_screen
-			state = end_screen(number_of_caractere, time(NULL) - start_time);
-		}
-		if (state == 10){ // 10 is the end of the game
-			lua_close(L);
-			endwin();
-			return 1;
+			case 1 :
+				number_of_caractere = 0;
+				start_time = time(NULL);
+				long int maximal_time = max_time();
+				const uint8_t* first_sentence = get_text(L);
+				const uint8_t* second_sentence = get_text(L);
+				time_t actual_time;
+				while(((actual_time = time(NULL)) - start_time) < maximal_time){
+
+					number_of_caractere += start_screen(first_sentence, second_sentence);
+					clear();
+					first_sentence = second_sentence;
+					second_sentence = get_text(L);
+				}					
+				state = 2;
+
+			case 2 :
+				state = end_screen(number_of_caractere, time(NULL) - start_time);
+
+			case 3 :
+				printf("TODO");
+				return 1;
+
+			case 10 :
+				lua_close(L);
+				endwin();
+				return 1;
+
+			default :
+				printf("Error in the main swith\n");
 	}
 	}
 

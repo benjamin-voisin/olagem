@@ -1,2 +1,2 @@
 
-void startscreen(void);
+int startscreen(void);
