@@ -100,6 +100,8 @@ int main (int argc, char * argv[]){
 
 			case 3 :
 				printf("TODO");
+				lua_close(L);
+				endwin();
 				return 1;
 				break;
 
@@ -111,6 +113,8 @@ int main (int argc, char * argv[]){
 
 			default :
 				printf("Error in the main swith\n");
+				lua_close(L);
+				endwin();
 				break;
 	}
 	}
