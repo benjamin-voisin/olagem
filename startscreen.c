@@ -10,15 +10,24 @@ int startscreen(void){
 	while(ch != 's' && ch != 'r' && ch != 'q'){
 		ch = getch();
 	}
+	int result;
 	switch(ch){
 		case 's' :
-			return 3;
+			result = 3;
+			break;
+
 		case 'r' :
-			return 1;
+			result = 1;
+			break;
+
 		case 'q' :
-			return 10;
+			result = 10;
+			break;
+
 		default :
 			printf("Error in the startscreen function \n");
-			return 10;
+			result = 10;
+			break;
 	}
+	return result;
 }

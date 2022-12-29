@@ -74,6 +74,7 @@ int main (int argc, char * argv[]){
 		switch(state){
 			case 0 :
 				state = startscreen();
+				break;
 
 			case 1 :
 				number_of_caractere = 0;
@@ -90,21 +91,27 @@ int main (int argc, char * argv[]){
 					second_sentence = get_text(L);
 				}					
 				state = 2;
+				break;
+
 
 			case 2 :
 				state = end_screen(number_of_caractere, time(NULL) - start_time);
+				break;
 
 			case 3 :
 				printf("TODO");
 				return 1;
+				break;
 
 			case 10 :
 				lua_close(L);
 				endwin();
 				return 1;
+				break;
 
 			default :
 				printf("Error in the main swith\n");
+				break;
 	}
 	}
 
