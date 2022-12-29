@@ -14,7 +14,6 @@ long int max_time(){
 	int i = 0;
 	while((letter = fgetc(fichier)) != '=');
 	while((letter = fgetc(fichier)) != EOF){
-		printf("%c", letter);
 		time_char[i] = letter;
 		i ++;
 	}

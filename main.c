@@ -33,35 +33,7 @@ const uint8_t* get_text(lua_State* L){
 	return text;
 }
 
-int old_main(int argc, char * argv[]){
-	setlocale(LC_CTYPE,"");
-	lua_State *L = init_lua("generateur.lua");
 
-	bool restart = true;
-
-	long int maximal_time = max_time();
-
-	startscreen();
-
-	while (restart){
-		const uint8_t* first_sentence = get_text(L);
-		const uint8_t* second_sentence = get_text(L);
-		time_t start_time = time(NULL);
-		time_t actual_time;
-		long int number_of_caractere = 0;
-		while(((actual_time = time(NULL)) - start_time) < maximal_time){
-
-			number_of_caractere += start_screen(first_sentence, second_sentence);
-			clear();
-			first_sentence = second_sentence;
-			second_sentence = get_text(L);
-		}
-		restart = end_screen(number_of_caractere, time(NULL) - start_time);
-	}
-	lua_close(L);
-	endwin();
-	return 1;
-}
 
 int main (int argc, char * argv[]){
 	setlocale(LC_CTYPE,"");
