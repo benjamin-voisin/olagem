@@ -1,6 +1,6 @@
 #include <ncurses.h>
 
-#include "screen_tools.h"
+#include "headers/screen_tools.h"
 
 int end_screen(long int number_of_caracteres, long int time){
 	clear();

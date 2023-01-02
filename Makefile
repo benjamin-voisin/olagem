@@ -13,19 +13,19 @@ main.o: main.c
 	gcc -c -lncursesw main.c
 
 
-terminal_printer.o: terminal_printer.c terminal_printer.h
+terminal_printer.o: terminal_printer.c
 	gcc -c -lncursesw terminal_printer.c 
 
-screen_tools.o: screen_tools.c screen_tools.h
+screen_tools.o: screen_tools.c
 	gcc -c -lncursesw screen_tools.c
 
-endscreen.o: endscreen.c endscreen.h
+endscreen.o: endscreen.c
 	gcc -c -lncursesw endscreen.c
 
-startscreen.o: startscreen.c startscreen.h
+startscreen.o: startscreen.c
 	gcc -c -lncursesw startscreen.c
 
-settings.o: settings.c settings.h
+settings.o: settings.c
 	gcc -c -lncursesw settings.c
 
 clean:

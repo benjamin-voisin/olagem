@@ -1,6 +1,6 @@
 #include <ncurses.h>
 
-#include "screen_tools.h"
+#include "headers/screen_tools.h"
 
 int startscreen(void){
 	init();

@@ -7,10 +7,10 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "terminal_printer.h"
-#include "endscreen.h"
-#include "startscreen.h"
-#include "settings.h"
+#include "headers/terminal_printer.h"
+#include "headers/endscreen.h"
+#include "headers/startscreen.h"
+#include "headers/settings.h"
 
 
 lua_State * init_lua(char* fichier){
