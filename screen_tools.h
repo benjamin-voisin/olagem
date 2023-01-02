@@ -3,8 +3,8 @@ void color_init(void);
 
 void init(void);
 
-void make_cursor(void);
+void make_cursor(WINDOW*);
 
-void suppr(void);
+void suppr(WINDOW* window);
 
-bool is_not_first_caracter(void);
+bool is_not_first_caracter(WINDOW* window);

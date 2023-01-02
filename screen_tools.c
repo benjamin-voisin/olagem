@@ -27,28 +27,28 @@ void init(){
 
 
 
-void make_cursor(){
+void make_cursor(WINDOW* window){
 	int x, y;
-	getyx(stdscr, y, x);
-	attron(COLOR_PAIR(6));
-	addch(' ');
-	attroff(COLOR_PAIR(6));
-	move(y,x);
+	getyx(window, y, x);
+	wattron(window, COLOR_PAIR(6));
+	waddch(window, ' ');
+	wattroff(window, COLOR_PAIR(6));
+	wmove(window, y,x);
 }
 
-void suppr(){
+void suppr(WINDOW* window){
 	int x, y;
-	getyx(stdscr, y, x);
-	attron(COLOR_PAIR(1));
-	move(y, x-1);
-	addch(' ');
-	move(y,x-1);
-	attroff(COLOR_PAIR(1));
-	make_cursor();
+	getyx(window, y, x);
+	wattron(window, COLOR_PAIR(1));
+	wmove(window, y, x-1);
+	waddch(window, ' ');
+	wmove(window, y,x-1);
+	wattroff(window, COLOR_PAIR(1));
+	make_cursor(window);
 }
 
-bool is_not_first_caracter(){
+bool is_not_first_caracter(WINDOW* window){
 	int y, x;
-	getyx(stdscr, y, x);
+	getyx(window, y, x);
 	return (x != 0);
 }

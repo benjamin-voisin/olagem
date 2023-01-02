@@ -3,32 +3,33 @@
 #include <locale.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "screen_tools.h"
 
 
 
-void failed(uint8_t ch){
+void failed(uint8_t ch, WINDOW* window){
 	attron(COLOR_PAIR(4));
-	addch(ch);
+	waddch(window, ch);
 	int i = 1;
 	while (i > 0){
 		ch = getch();
 		if (ch == 127){
-			suppr();
+			suppr(window);
 			i --;
 		}
 		else{
 			i ++;
 			attron(COLOR_PAIR(4));
-			addch(ch);
+			waddch(window, ch);
 		}
-	refresh();
+	wrefresh(window);
 	}
 
 }
 
-int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence) {
+int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t time) {
 	clear();
 
 	uint8_t ch;
@@ -36,38 +37,62 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence) 
 
 	init();
 
-	move(0,0);
-	printw(first_sentence);
-	printw("\n");
-	printw(second_sentence);
-	move(3,0);
-	refresh();
+	int height, width;
+	WINDOW* window = newwin(0,0,0,0);
+	getmaxyx(window,height,width);
+	delwin(window);
+
+	WINDOW* time_case = newwin(3, 5, height/4, width/3 - 6);
+	wmove(time_case, 1, 1);
+	box(time_case, 0, 0);
+	wprintw(time_case, "%ld", time);
+	wrefresh(time_case);
+
+	WINDOW* display_text = newwin(5, 80, height/4, width/3);
+	box(display_text, 0, 0);
+	wmove(display_text, 1, 1);
+	wprintw(display_text, first_sentence);
+	wmove(display_text, 2, 1);
+	wprintw(display_text, second_sentence);
+	wrefresh(display_text);
+	
+	WINDOW* text_input = newwin(3, 80, height/4 +5, width/3);
+	box(text_input, 0, 0);
+	wmove(text_input, 1, 1);
+	wrefresh(text_input);
+
+	
+
 	attron(COLOR_PAIR(2));
 	while(*first_sentence != '\0'){
-		ch = getch();
+		ch = wgetch(text_input);
 		if (ch == 127){
-			if (is_not_first_caracter()) {
-			suppr();
+			if (is_not_first_caracter(text_input)) {
+			suppr(text_input);
 			first_sentence --;
 			i --;
 			}
 		}
 		else{
-			addch(ch);
+			waddch(text_input, ch);
 			if (ch == *first_sentence){ 
 				first_sentence ++;
 				i ++;
 			}
 			else {
-				suppr();
-				attron(COLOR_PAIR(4));
-				failed(ch);
-				attroff(COLOR_PAIR(4));
+				suppr(text_input);
+				wattron(text_input, COLOR_PAIR(4));
+				failed( ch, text_input);
+				wattroff(text_input, COLOR_PAIR(4));
 			}
 		}
 
-	refresh();		/* Print it on to the real screen */
+	wrefresh(text_input);
+	/* refresh();		/1* Print it on to the real screen *1/ */
 	}
+	delwin(time_case);
+	delwin(display_text);
+	delwin(text_input);
 	return i;
 
 }
