@@ -36,6 +36,16 @@ const uint8_t* get_text(lua_State* L){
 
 
 int main (int argc, char * argv[]){
+	if (argc > 1){
+		if ((strcmp(argv[1],"-h") == 0) || (strcmp(argv[1], "-help") == 0)){
+			system("man ./manpage");
+			return 1;
+		}
+		else {
+			printf("For help using this program, try using \"man olagem\" or \"./olagem -h\".\nTo start the game, just type \"./olagem\"\n");
+		}
+	}
+	else {
 	setlocale(LC_CTYPE,"");
 	lua_State *L = init_lua("generateur.lua");
 	int state = 0;
@@ -92,6 +102,7 @@ int main (int argc, char * argv[]){
 	}
 	}
 
+	}
 	return 1;
 
 }
