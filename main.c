@@ -49,6 +49,7 @@ int main (int argc, char * argv[]){
 				break;
 
 			case 1 :
+				clear();
 				number_of_caractere = 0;
 				start_time = time(NULL);
 				long int maximal_time = max_time();

@@ -27,6 +27,13 @@ void failed(uint8_t ch, WINDOW* window){
 
 }
 
+void refresh_time(WINDOW* time_case, time_t start_time){
+		time_t actual_time = time(NULL);
+		wmove(time_case, 1, 1);
+		wprintw(time_case, "%ld", actual_time - start_time);
+		wrefresh(time_case);
+}
+
 int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t start_time) {
 	clear();
 
@@ -42,10 +49,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 
 	WINDOW* time_case = newwin(3, 5, height/4, width/3 - 6);
 	box(time_case, 0, 0);
-	time_t actual_time = time(NULL);
-	wmove(time_case, 1, 1);
-	wprintw(time_case, "%ld", actual_time - start_time);
-	wrefresh(time_case);
+	refresh_time(time_case, start_time);
 
 	WINDOW* display_text = newwin(5, 80, height/4, width/3);
 	box(display_text, 0, 0);
@@ -88,10 +92,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			}
 		}
 
-		actual_time = time(NULL);
-		wmove(time_case, 1, 1);
-		wprintw(time_case, "%ld", actual_time - start_time);
-		wrefresh(time_case);
+	refresh_time(time_case, start_time);
 	wrefresh(text_input);
 	/* refresh();		/1* Print it on to the real screen *1/ */
 	}
@@ -101,5 +102,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	return i;
 
 }
+
+
 
 

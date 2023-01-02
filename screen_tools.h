@@ -1,4 +1,6 @@
 
+#include <ncurses.h>
+
 void color_init(void);
 
 void init(void);
