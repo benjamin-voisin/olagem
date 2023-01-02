@@ -27,7 +27,10 @@ You can get help by typing
 ```
 man olagem
 ```
-in your terminal.
+in your terminal, or with the `-h` flag :
+```
+./olagem -h
+```
 
 ## State of the project
 
