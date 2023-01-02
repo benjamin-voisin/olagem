@@ -43,9 +43,10 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	init();
 
 	int height, width;
-	WINDOW* window = newwin(0,0,0,0);
-	getmaxyx(window,height,width);
-	delwin(window);
+	WINDOW* background = newwin(0,0,0,0);
+	getmaxyx(background,height,width);
+	wprintw(background, "oui");
+	wrefresh(background);
 
 	WINDOW* time_case = newwin(3, 5, height/4, width/3 - 6);
 	box(time_case, 0, 0);
@@ -99,6 +100,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	delwin(time_case);
 	delwin(display_text);
 	delwin(text_input);
+	delwin(background);
 	return i;
 
 }
