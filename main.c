@@ -57,7 +57,7 @@ int main (int argc, char * argv[]){
 				time_t actual_time;
 				while(((actual_time = time(NULL)) - start_time) < maximal_time){
 
-					number_of_caractere += start_screen(first_sentence, second_sentence, actual_time - start_time);
+					number_of_caractere += start_screen(first_sentence, second_sentence, start_time);
 					clear();
 					first_sentence = second_sentence;
 					second_sentence = get_text(L);

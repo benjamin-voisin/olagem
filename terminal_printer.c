@@ -10,18 +10,16 @@
 
 
 void failed(uint8_t ch, WINDOW* window){
-	attron(COLOR_PAIR(4));
 	waddch(window, ch);
 	int i = 1;
 	while (i > 0){
-		ch = getch();
+		ch = wgetch(window);
 		if (ch == 127){
 			suppr(window);
 			i --;
 		}
 		else{
 			i ++;
-			attron(COLOR_PAIR(4));
 			waddch(window, ch);
 		}
 	wrefresh(window);
@@ -29,7 +27,7 @@ void failed(uint8_t ch, WINDOW* window){
 
 }
 
-int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t time) {
+int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t start_time) {
 	clear();
 
 	uint8_t ch;
@@ -43,9 +41,10 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	delwin(window);
 
 	WINDOW* time_case = newwin(3, 5, height/4, width/3 - 6);
-	wmove(time_case, 1, 1);
 	box(time_case, 0, 0);
-	wprintw(time_case, "%ld", time);
+	time_t actual_time = time(NULL);
+	wmove(time_case, 1, 1);
+	wprintw(time_case, "%ld", actual_time - start_time);
 	wrefresh(time_case);
 
 	WINDOW* display_text = newwin(5, 80, height/4, width/3);
@@ -75,11 +74,13 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 		}
 		else{
 			waddch(text_input, ch);
+			wrefresh(text_input);
 			if (ch == *first_sentence){ 
 				first_sentence ++;
 				i ++;
 			}
 			else {
+
 				suppr(text_input);
 				wattron(text_input, COLOR_PAIR(4));
 				failed( ch, text_input);
@@ -87,6 +88,10 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			}
 		}
 
+		actual_time = time(NULL);
+		wmove(time_case, 1, 1);
+		wprintw(time_case, "%ld", actual_time - start_time);
+		wrefresh(time_case);
 	wrefresh(text_input);
 	/* refresh();		/1* Print it on to the real screen *1/ */
 	}
