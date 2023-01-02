@@ -1,0 +1,15 @@
+.\" Manpage for olagem.
+.\" Contact benjamin.voisin@lilo.org to correct errors or typos.
+.TH man 6 "02 January 2023" "1.0" "olagem man page"
+.SH NAME
+olagem \- a typing speed test game. 
+.SH SYNOPSIS
+olagem
+.SH DESCRIPTION
+olagem is a typing speed test game.
+.SH OPTIONS
+Olagem does not take any option (yet)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Benjamin Voisin (benjamin.voisin@lilo.org)

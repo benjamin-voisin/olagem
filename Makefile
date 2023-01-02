@@ -1,5 +1,11 @@
 default: olagem
 
+install: olagem clean man
+
+man: 
+	cp manpage /usr/share/man/man6/olagem.6
+	gzip /usr/share/man/man6/olagem.6
+
 olagem: main.o terminal_printer.o screen_tools.o endscreen.o startscreen.o settings.o
 	gcc -g -llua -lncursesw main.o terminal_printer.o screen_tools.o endscreen.o startscreen.o settings.o -o olagem 
 
