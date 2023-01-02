@@ -9,7 +9,14 @@
 
 
 
-void failed(uint8_t ch, WINDOW* window){
+void refresh_time(WINDOW* time_case, time_t start_time){
+		time_t actual_time = time(NULL);
+		wmove(time_case, 1, 1);
+		wprintw(time_case, "%ld", actual_time - start_time);
+		wrefresh(time_case);
+}
+
+void failed(uint8_t ch, WINDOW* window, WINDOW* time_case, time_t start_time){
 	waddch(window, ch);
 	int i = 1;
 	while (i > 0){
@@ -22,17 +29,12 @@ void failed(uint8_t ch, WINDOW* window){
 			i ++;
 			waddch(window, ch);
 		}
+	refresh_time(time_case, start_time);
 	wrefresh(window);
 	}
 
 }
 
-void refresh_time(WINDOW* time_case, time_t start_time){
-		time_t actual_time = time(NULL);
-		wmove(time_case, 1, 1);
-		wprintw(time_case, "%ld", actual_time - start_time);
-		wrefresh(time_case);
-}
 
 int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t start_time) {
 	clear();
@@ -88,7 +90,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 
 				suppr(text_input);
 				wattron(text_input, COLOR_PAIR(4));
-				failed( ch, text_input);
+				failed( ch, text_input, time_case, start_time);
 				wattroff(text_input, COLOR_PAIR(4));
 			}
 		}
