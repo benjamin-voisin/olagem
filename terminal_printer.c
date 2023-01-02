@@ -17,10 +17,12 @@ void refresh_time(WINDOW* time_case, time_t start_time){
 }
 
 void failed(uint8_t ch, WINDOW* window, WINDOW* time_case, time_t start_time){
+	wattron(window, COLOR_PAIR(4));
 	waddch(window, ch);
 	int i = 1;
 	while (i > 0){
 		ch = wgetch(window);
+		wattron(window, COLOR_PAIR(4));
 		if (ch == 127){
 			suppr(window);
 			i --;
@@ -89,7 +91,6 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			else {
 
 				suppr(text_input);
-				wattron(text_input, COLOR_PAIR(4));
 				failed( ch, text_input, time_case, start_time);
 				wattroff(text_input, COLOR_PAIR(4));
 			}
