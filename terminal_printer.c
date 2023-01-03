@@ -108,6 +108,10 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 
 }
 
+int file_input_game(char ** text){
+	return 1;
+}
+
 
 
 
