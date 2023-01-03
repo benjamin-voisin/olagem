@@ -22,12 +22,11 @@ end
 function file_reader(max_caractere, fichier)
 	file = io.open(fichier, "r")
 	if (file ~= nil) then
-		table = {}
+		table = {"Phrase 1", "Phrase 2", "Phrase 3", "Phrase 4", "Phrase 5", "Phrase 6"}
 		return #table, table
 	else
 		print("erreur fichier inexistant")
 	end
-	print("oui")
 end
 
 function cadavres_exquis()
