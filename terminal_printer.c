@@ -38,7 +38,7 @@ void failed(uint8_t ch, WINDOW* window, WINDOW* time_case, time_t start_time){
 }
 
 
-int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t start_time) {
+int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, time_t start_time, int max_caractere) {
 	clear();
 
 	uint8_t ch;
@@ -56,7 +56,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	box(time_case, 0, 0);
 	refresh_time(time_case, start_time);
 
-	WINDOW* display_text = newwin(5, 70, height/4, width/3);
+	WINDOW* display_text = newwin(5, max_caractere + 2, height/4, width/3);
 	box(display_text, 0, 0);
 	wmove(display_text, 1, 1);
 	wprintw(display_text, first_sentence);
@@ -64,7 +64,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	wprintw(display_text, second_sentence);
 	wrefresh(display_text);
 	
-	WINDOW* text_input = newwin(3, 70, height/4 +5, width/3);
+	WINDOW* text_input = newwin(3, max_caractere + 2, height/4 +5, width/3);
 	box(text_input, 0, 0);
 	wmove(text_input, 1, 1);
 	wrefresh(text_input);
