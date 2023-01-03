@@ -52,11 +52,11 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	wprintw(background, "oui");
 	wrefresh(background);
 
-	WINDOW* time_case = newwin(3, 5, height/4, width/3 - 6);
+	WINDOW* time_case = newwin(3, 5, height/4, ((width - max_caractere - 4) / 2) - 6);
 	box(time_case, 0, 0);
 	refresh_time(time_case, start_time);
 
-	WINDOW* display_text = newwin(5, max_caractere + 2, height/4, width/3);
+	WINDOW* display_text = newwin(4, max_caractere + 2, height/4, (width - max_caractere - 4) / 2);
 	box(display_text, 0, 0);
 	wmove(display_text, 1, 1);
 	wprintw(display_text, first_sentence);
@@ -64,7 +64,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	wprintw(display_text, second_sentence);
 	wrefresh(display_text);
 	
-	WINDOW* text_input = newwin(3, max_caractere + 2, height/4 +5, width/3);
+	WINDOW* text_input = newwin(3, max_caractere + 2, height/4 +5, (width - max_caractere - 4) /2);
 	box(text_input, 0, 0);
 	wmove(text_input, 1, 1);
 	wrefresh(text_input);

@@ -30,9 +30,13 @@ const uint8_t* get_text(lua_State* L, int max_caractere, const char* file){
 	lua_pushnumber(L, max_caractere);
 	lua_pushstring(L, file);
 	lua_pcall(L, 2, 1, 0);
-	const uint8_t* text = lua_tolstring(L, -1, NULL);
-
-	return text;
+	if (lua_istable(L, -1)){
+			printf("ah\n");
+	}
+	else{
+		const uint8_t* text = lua_tolstring(L, -1, NULL);
+		return text;
+	}
 }
 
 
@@ -44,7 +48,7 @@ int main (int argc, char * argv[]){
 	int state = 0;
 	time_t start_time = time(NULL);
 	long int number_of_caractere = 0;
-	int max_caractere = COLS / 2;
+	int max_caractere = COLS / 1.5;
 	if (argc > 1){
 		if ((strcmp(argv[1],"-h") == 0) || (strcmp(argv[1], "-help") == 0)){
 			system("man ./manpage");
