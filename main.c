@@ -33,12 +33,23 @@ const uint8_t* get_text(lua_State* L, int max_caractere){
 	return text;
 }
 
-char ** get_text_file(lua_State* L, int max_caractere, const char* file){
+uint8_t ** get_text_file(lua_State* L, int max_caractere, const char* file){
 	lua_getglobal(L, "file_reader");
 	lua_pushnumber(L, max_caractere);
-	lua_pcall(L, 2, 1, 0);
+	lua_pushstring(L, file);
+	lua_pcall(L, 2, 2, 0);
+	int number_of_sentences = lua_tonumber(L, -2);
+	uint8_t text[number_of_sentences][max_caractere];
+	printf("%d\n", number_of_sentences);
+	for (int k = 1; k <= number_of_sentences; k++){
+		lua_rawgeti(L, -1, k); 
+		uint8_t*  sentence = lua_tolstring(L, -1, NULL);
+		lua_settop(L, -2);
+		printf("%s\n", sentence);
+		strcpy(text[k-1], sentence);
+	}
+	return text;
 
-	printf("af\n");
 
 }
 
@@ -75,9 +86,10 @@ int main (int argc, char * argv[]){
 				const uint8_t* second_sentence = get_text(L,max_caractere);
 				time_t actual_time;
 				if (argc > 1){
-					char ** text = get_text_file(L, max_caractere, argv[1]);
-					printf("ah\n");
-					state = 2;
+					/* uint8_t  text[6][max_caractere] = get_text_file(L, max_caractere, argv[1]); */
+					/* printf("%s\n", text[1]); */
+					
+				state = 2;
 				}
 				else{
 				while(((actual_time = time(NULL)) - start_time) < maximal_time){
