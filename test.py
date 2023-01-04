@@ -1,4 +1,3 @@
-#Ce programme affiche un adjectif au hasard parmi l’ensemble des adjectifs de wikidata !!!
 import requests
 import json
 import random
