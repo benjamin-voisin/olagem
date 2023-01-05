@@ -10,8 +10,10 @@ function get_content(title)
 	}
 
 	local response = table.concat(body)
+	s, e = string.find(response, "content\":\"")
+	response = string.sub(response, e + 1, #response - 9)
 
-	print(response)
+	return(response)
 end
 
-get_content("Taverny")
+print(get_content("Taverny"))
