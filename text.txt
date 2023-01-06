@@ -1,0 +1,5 @@
+Ceci est un texte de test, on va le faire plus grand que la variable max_caractere, et normalement le truc générateur va devoir le couper aux bons endroit histoire de faire que ça rentre, mais javou jsp.
+Deuxième ligne
+Troisième ligne
+
+espace espace

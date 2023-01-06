@@ -86,10 +86,44 @@ int main (int argc, char * argv[]){
 				const uint8_t* second_sentence = get_text(L,max_caractere);
 				time_t actual_time;
 				if (argc > 1){
-					/* uint8_t  text[6][max_caractere] = get_text_file(L, max_caractere, argv[1]); */
-					/* printf("%s\n", text[1]); */
+
+					lua_State *file_reader = init_lua("file_reader.lua");
+
+					lua_getglobal(file_reader, "init_table");
+					lua_pushstring(file_reader, argv[1]);
+					lua_pushnumber(file_reader, max_caractere);
+					lua_pcall(file_reader, 2, 0, 0);
+					const uint8_t* first_line;
+					const uint8_t* second_line;
+					int i = 0;
+					lua_getglobal(file_reader, "read_line");
+					lua_pushnumber(file_reader, 0);
+					lua_pcall(file_reader, 1, 1, 0);
+					while (!lua_isnil(file_reader, -1)) {
+						printf("on est dans le while\n");
+						first_line = lua_tolstring(file_reader, -1, NULL);
+						lua_getglobal(file_reader, "read_line");
+						lua_pushnumber(file_reader, i + 1);
+						lua_pcall(file_reader, 1, 1, 0);
+						second_line = lua_tolstring(file_reader, -1, NULL);
+
+						number_of_caractere += start_screen(first_line, second_line, start_time, max_caractere);
+						clear();
+						i ++;
+						lua_getglobal(file_reader, "read_line");
+						lua_pushnumber(file_reader, i);
+						lua_pcall(file_reader, 1, 1, 0);
+
+
+
+						}
+
+
+
+
 					
-				state = 2;
+					lua_close(file_reader);
+					state = 2;
 				}
 				else{
 				while(((actual_time = time(NULL)) - start_time) < maximal_time){
