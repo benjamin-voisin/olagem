@@ -82,8 +82,6 @@ int main (int argc, char * argv[]){
 				number_of_caractere = 0;
 				start_time = time(NULL);
 				long int maximal_time = max_time();
-				const uint8_t* first_sentence = get_text(L,max_caractere);
-				const uint8_t* second_sentence = get_text(L,max_caractere);
 				time_t actual_time;
 				if (argc > 1){
 
@@ -100,7 +98,6 @@ int main (int argc, char * argv[]){
 					lua_pushnumber(file_reader, 0);
 					lua_pcall(file_reader, 1, 1, 0);
 					while (!lua_isnil(file_reader, -1)) {
-						printf("on est dans le while\n");
 						first_line = lua_tolstring(file_reader, -1, NULL);
 						lua_getglobal(file_reader, "read_line");
 						lua_pushnumber(file_reader, i + 1);
@@ -126,6 +123,8 @@ int main (int argc, char * argv[]){
 					state = 2;
 				}
 				else{
+				const uint8_t* first_sentence = get_text(L,max_caractere);
+				const uint8_t* second_sentence = get_text(L,max_caractere);
 				while(((actual_time = time(NULL)) - start_time) < maximal_time){
 
 					number_of_caractere += start_screen(first_sentence, second_sentence, start_time, max_caractere);

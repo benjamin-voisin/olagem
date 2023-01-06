@@ -2,12 +2,17 @@ _G.table = {}
 
 function slice_lines(ligne, max_size)
 	t = {}
-	while(#ligne >= max_size) do
-		l1 = string.sub(ligne, 1, max_size)
-		ligne = string.sub(ligne, max_size, #ligne)
-		t[#t + 1] = l1
+	if (#ligne < max_size) then
+		return {ligne}
+	else
+		while(#ligne >= max_size) do
+			l1 = string.sub(ligne, 1, max_size)
+			ligne = string.sub(ligne, max_size, #ligne)
+			t[#t + 1] = l1
+		end
+		t[#t + 1] = ligne
+		return t
 	end
-	return t
 end
 
 function init_table(file, max_size)
@@ -17,11 +22,13 @@ function init_table(file, max_size)
 		return nil
 	else
 		ligne = file:read()
-		lignes = slice_lines(ligne, max_size)
-		for k = 1, #lignes do
-			print(lignes[k])
-			_G.table[i] = lignes[k]
-			i = i + 1
+		while (ligne ~= nil) do
+			lignes = slice_lines(ligne, max_size)
+			for k = 1, #lignes do
+				_G.table[i] = lignes[k]
+				i = i + 1
+			end
+			ligne = file:read()
 		end
 	end
 end
