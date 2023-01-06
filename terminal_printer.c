@@ -82,17 +82,19 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			}
 		}
 		else{
-			waddch(text_input, ch);
-			wrefresh(text_input);
-			if (ch == *first_sentence){ 
-				first_sentence ++;
-				i ++;
-			}
-			else {
+			if (ch != 10){
+				waddch(text_input, ch);
+				wrefresh(text_input);
+				if (ch == *first_sentence){ 
+					first_sentence ++;
+					i ++;
+				}
+				else {
 
-				suppr(text_input);
-				failed( ch, text_input, time_case, start_time);
-				wattroff(text_input, COLOR_PAIR(4));
+					suppr(text_input);
+					failed( ch, text_input, time_case, start_time);
+					wattroff(text_input, COLOR_PAIR(4));
+				}
 			}
 		}
 
