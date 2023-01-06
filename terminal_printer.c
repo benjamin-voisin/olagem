@@ -16,7 +16,13 @@ void refresh_time(WINDOW* time_case, time_t start_time){
 		wrefresh(time_case);
 }
 
-void failed(uint8_t ch, WINDOW* window, WINDOW* time_case, time_t start_time){
+bool is_last(int max_caractere,WINDOW* window){
+	int x, y;
+	getyx(window,y,x);
+	return (x == max_caractere + 1);
+}
+
+void failed(uint8_t ch, WINDOW* window, WINDOW* time_case, time_t start_time, int max_caractere){
 	wattron(window, COLOR_PAIR(4));
 	waddch(window, ch);
 	int i = 1;
@@ -28,8 +34,10 @@ void failed(uint8_t ch, WINDOW* window, WINDOW* time_case, time_t start_time){
 			i --;
 		}
 		else{
-			i ++;
-			waddch(window, ch);
+			if (!is_last(max_caractere, window)){
+				i ++;
+				waddch(window, ch);
+			}
 		}
 	refresh_time(time_case, start_time);
 	wrefresh(window);
@@ -82,7 +90,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			}
 		}
 		else{
-			if (ch != 10){
+			if (ch != 10 ){
 				waddch(text_input, ch);
 				wrefresh(text_input);
 				if (ch == *first_sentence){ 
@@ -92,7 +100,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 				else {
 
 					suppr(text_input);
-					failed( ch, text_input, time_case, start_time);
+					failed( ch, text_input, time_case, start_time, max_caractere);
 					wattroff(text_input, COLOR_PAIR(4));
 				}
 			}
