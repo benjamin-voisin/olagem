@@ -81,7 +81,6 @@ int main (int argc, char * argv[]){
 				clear();
 				number_of_caractere = 0;
 				start_time = time(NULL);
-				printf("%d", max_caractere);
 				long int maximal_time = max_time();
 				const uint8_t* first_sentence = get_text(L,max_caractere);
 				const uint8_t* second_sentence = get_text(L,max_caractere);
