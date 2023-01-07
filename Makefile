@@ -1,6 +1,7 @@
 default: olagem
 
 install: olagem clean man
+	echo "max_time=60" > settings.txt
 
 man: 
 	cp manpage /usr/share/man/man6/olagem.6
