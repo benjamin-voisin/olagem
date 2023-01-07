@@ -7,7 +7,7 @@ function slice_lines(ligne, max_size)
 	else
 		while(#ligne >= max_size) do
 			l1 = string.sub(ligne, 1, max_size)
-			ligne = string.sub(ligne, max_size, #ligne)
+			ligne = string.sub(ligne, max_size + 1, #ligne)
 			t[#t + 1] = l1
 		end
 		t[#t + 1] = ligne
