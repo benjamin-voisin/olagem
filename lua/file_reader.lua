@@ -31,6 +31,7 @@ function init_table(file, max_size)
 			ligne = file:read()
 		end
 	end
+	return 1
 end
 
 function read_line(i)

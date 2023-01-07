@@ -58,7 +58,7 @@ uint8_t ** get_text_file(lua_State* L, int max_caractere, const char* file){
 int main (int argc, char * argv[]){
 	initscr();
 	setlocale(LC_CTYPE,"");
-	lua_State *L = init_lua("generateur.lua");
+	lua_State *L = init_lua("lua/generateur.lua");
 	int state = 0;
 	time_t start_time = time(NULL);
 	long int number_of_caractere = 0;
@@ -85,12 +85,19 @@ int main (int argc, char * argv[]){
 				time_t actual_time;
 				if (argc > 1){
 
-					lua_State *file_reader = init_lua("file_reader.lua");
+					lua_State *file_reader = init_lua("lua/file_reader.lua");
 
 					lua_getglobal(file_reader, "init_table");
 					lua_pushstring(file_reader, argv[1]);
 					lua_pushnumber(file_reader, max_caractere);
-					lua_pcall(file_reader, 2, 0, 0);
+					lua_pcall(file_reader, 2, 1, 0);
+					if (lua_isnil(file_reader, -1)){
+						printf("The file %s does not exist", argv[1]);
+						lua_close(file_reader);
+						endwin();
+						return 1;
+					}
+
 					const uint8_t* first_line;
 					const uint8_t* second_line;
 					int i = 0;
