@@ -8,7 +8,7 @@ function sentence_generator(max_caractere)
 	finished = false
 	while (not finished) do
 		n = math.random(#words)
-		if (string.len(text) + string.len(words[n]) < max_caractere - 2) then
+		if (string.len(text) + string.len(words[n]) < max_caractere - 3) then
 			text = text..words[math.random(#words)].." "
 		else
 			finished = true
