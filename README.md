@@ -32,6 +32,14 @@ in your terminal, or with the `-h` flag :
 ./olagem -h
 ```
 
+### Make it accessible evrywhere
+
+You can use the command
+```
+echo "alias olagem='$PWD/olagem'" >> ~/.bashrc
+```
+to make the program olagem accessible in your terminal with the `olagem`command.
+
 ## State of the project
 
 The first version of the typing part is good. Now we just need a good generator.
