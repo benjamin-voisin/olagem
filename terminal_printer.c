@@ -70,6 +70,8 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 	wprintw(display_text, first_sentence);
 	wmove(display_text, 2, 1);
 	wprintw(display_text, second_sentence);
+	wmove(display_text, 1, 1);
+	wattron(display_text,COLOR_PAIR(3));
 	wrefresh(display_text);
 	
 	WINDOW* text_input = newwin(3, max_caractere + 2, height/4 +5, (width - max_caractere - 4) /2);
@@ -94,6 +96,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 				waddch(text_input, ch);
 				wrefresh(text_input);
 				if (ch == *first_sentence){ 
+					waddch(display_text, ch);
 					first_sentence ++;
 					i ++;
 				}
@@ -106,6 +109,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			}
 		}
 
+	wrefresh(display_text);
 	refresh_time(time_case, start_time);
 	wrefresh(text_input);
 	/* refresh();		/1* Print it on to the real screen *1/ */
