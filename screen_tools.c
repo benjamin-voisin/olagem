@@ -36,7 +36,7 @@ void make_cursor(WINDOW* window){
 	wmove(window, y,x);
 }
 
-void suppr(WINDOW* window){
+void suppr(WINDOW* window, WINDOW* display_text){
 	int x, y;
 	getyx(window, y, x);
 	wattron(window, COLOR_PAIR(1));
@@ -45,6 +45,8 @@ void suppr(WINDOW* window){
 	wmove(window, y,x-1);
 	wattroff(window, COLOR_PAIR(1));
 	make_cursor(window);
+	getyx(display_text, y, x);
+	wmove(display_text, y, x-1);
 }
 
 bool is_not_first_caracter(WINDOW* window){

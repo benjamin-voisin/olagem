@@ -7,6 +7,6 @@ void init(void);
 
 void make_cursor(WINDOW*);
 
-void suppr(WINDOW* window);
+void suppr(WINDOW* window, WINDOW* display_text);
 
 bool is_not_first_caracter(WINDOW* window);
