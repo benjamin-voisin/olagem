@@ -37,6 +37,12 @@ void failed(uint8_t ch, WINDOW* window, WINDOW* time_case,WINDOW* display_text, 
 		wattron(window, COLOR_PAIR(4));
 		if (ch == 127){
 			suppr(window, display_text);
+			getyx(display_text,y,x);
+			wattron(display_text, COLOR_PAIR(2));
+			waddch(display_text,*text);
+			wattroff(display_text, COLOR_PAIR(2));
+			wmove(display_text,y,x);
+			wrefresh(display_text);
 			text --;
 			i --;
 		}
