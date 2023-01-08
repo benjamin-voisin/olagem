@@ -52,5 +52,5 @@ void suppr(WINDOW* window, WINDOW* display_text){
 bool is_not_first_caracter(WINDOW* window){
 	int y, x;
 	getyx(window, y, x);
-	return (x != 0);
+	return (x != 1);
 }
