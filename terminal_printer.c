@@ -111,7 +111,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 			}
 		}
 		else{
-			if (ch != 10 ){
+			if (ch != 10 && ch != 9 ){
 				waddch(text_input, ch);
 				wrefresh(text_input);
 				if (ch == *first_sentence){ 
