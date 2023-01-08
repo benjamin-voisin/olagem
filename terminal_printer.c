@@ -105,8 +105,14 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 		ch = wgetch(text_input);
 		if (ch == 127){
 			if (is_not_first_caracter(text_input)) {
+			int y, x;
+			getyx(display_text,y,x);
 			suppr(text_input, display_text);
 			first_sentence --;
+			wattron(display_text, COLOR_PAIR(2));
+			waddch(display_text, *first_sentence);
+			wattron(display_text, COLOR_PAIR(3));
+			wmove(display_text, y, x - 1);
 			i --;
 			}
 		}
