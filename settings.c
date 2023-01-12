@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ncurses.h>
 
 long int max_time(){
 	FILE * fichier;
 	fichier = fopen("settings.txt", "r");
 	if (fichier == NULL){
 		perror("fopen");
+		endwin();
 		exit(1);
 	}
 	char letter;
