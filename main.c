@@ -55,31 +55,37 @@ uint8_t ** get_text_file(lua_State* L, int max_caractere, const char* file){
 }
 
 
+int read_arg(int argc, char* argv[]){
+	int state = 0;
+	for (int k = 1; k < argc; k++){
+		if ((strcmp(argv[k],"-h") == 0) || (strcmp(argv[k], "-help") == 0) || (strcmp(argv[k], "--help") == 0)){
+			return 15;
+		}
+	}
+	return state;
+}
+
 int main (int argc, char * argv[]){
 	initscr();
 	setlocale(LC_CTYPE,"");
 	lua_State *L = init_lua("lua/generateur.lua");
-	int state = 0;
+	int state = read_arg(argc, argv);
 	time_t start_time = time(NULL);
 	long int number_of_caractere = 0;
 	int max_caractere = COLS / 1.5;
-	if (argc > 1){
-		state = 1;
-		if ((strcmp(argv[1],"-h") == 0) || (strcmp(argv[1], "-help") == 0)){
-			system("man ./manpage");
-			endwin();
-			lua_close(L);
-			return 1;
-		}
-	}
+	/* if (argc > 1){ */
+	/* 	state = 1; */
+	/* 	if ((strcmp(argv[1],"-h") == 0) || (strcmp(argv[1], "-help") == 0)){ */
+	/* 	} */
+	/* } */
 
 	while(1){
 		switch(state){
-			case 0 :
+			case 0 : //Start screen
 				state = startscreen();
 				break;
 
-			case 1 :
+			case 1 : //Game screen
 				clear();
 				number_of_caractere = 0;
 				start_time = time(NULL);
@@ -146,20 +152,27 @@ int main (int argc, char * argv[]){
 				break;
 
 
-			case 2 :
+			case 2 : //End screen
 				state = end_screen(number_of_caractere, time(NULL) - start_time);
 				break;
 
-			case 3 :
+			case 3 : //Settings screen
 				printf("TODO");
 				lua_close(L);
 				endwin();
 				return 1;
 				break;
 
-			case 10 :
+			case 10 : //Close the program
 				lua_close(L);
 				endwin();
+				return 1;
+				break;
+
+			case 15 : //Help
+				system("man ./manpage");
+				endwin();
+				lua_close(L);
 				return 1;
 				break;
 
