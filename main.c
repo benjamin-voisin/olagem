@@ -53,6 +53,8 @@ int main (int argc, char * argv[]){
 	time_t start_time = time(NULL);
 	long int number_of_caractere = 0;
 	int max_caractere = COLS / 1.5;
+	long int maximal_time;
+	time_t actual_time;
 	/* if (argc > 1){ */
 	/* 	state = 1; */
 	/* 	if ((strcmp(argv[1],"-h") == 0) || (strcmp(argv[1], "-help") == 0)){ */
@@ -72,6 +74,29 @@ int main (int argc, char * argv[]){
 				long int maximal_time = max_time();
 				time_t actual_time;
 				if (argc > 1){
+					state = 11;
+					break;
+
+				}
+				else{
+				const uint8_t* first_sentence = get_text(L,max_caractere);
+				const uint8_t* second_sentence = get_text(L,max_caractere);
+				while(((actual_time = time(NULL)) - start_time) < maximal_time){
+
+					number_of_caractere += start_screen(first_sentence, second_sentence, start_time, max_caractere);
+					clear();
+					first_sentence = second_sentence;
+					second_sentence = get_text(L,max_caractere);
+				}					
+				state = 2;
+				}
+				break;
+
+			case 11 : //Game screen but when a file name is specified
+				clear();
+				number_of_caractere = 0;
+				start_time = time(NULL);
+				maximal_time = max_time();
 
 					lua_State *file_reader = init_lua("lua/file_reader.lua");
 
@@ -107,30 +132,12 @@ int main (int argc, char * argv[]){
 						lua_pcall(file_reader, 1, 1, 0);
 
 
-
-						}
-
-
-
-
-					
 					lua_close(file_reader);
 					state = 2;
 				}
-				else{
-				const uint8_t* first_sentence = get_text(L,max_caractere);
-				const uint8_t* second_sentence = get_text(L,max_caractere);
-				while(((actual_time = time(NULL)) - start_time) < maximal_time){
 
-					number_of_caractere += start_screen(first_sentence, second_sentence, start_time, max_caractere);
-					clear();
-					first_sentence = second_sentence;
-					second_sentence = get_text(L,max_caractere);
-				}					
 				state = 2;
-				}
 				break;
-
 
 			case 2 : //End screen
 				state = end_screen(number_of_caractere, time(NULL) - start_time);
