@@ -78,8 +78,7 @@ int main (int argc, char * argv[]){
 				clear();
 				number_of_caractere = 0;
 				start_time = time(NULL);
-				long int maximal_time = max_time();
-				time_t actual_time;
+				maximal_time = max_time();
 				const uint8_t* first_sentence = get_text(L,max_caractere);
 				const uint8_t* second_sentence = get_text(L,max_caractere);
 				while(((actual_time = time(NULL)) - start_time) < maximal_time){
@@ -96,7 +95,6 @@ int main (int argc, char * argv[]){
 				clear();
 				number_of_caractere = 0;
 				start_time = time(NULL);
-				maximal_time = max_time();
 
 				lua_State *file_reader = init_lua("lua/file_reader.lua");
 
