@@ -59,7 +59,7 @@ int read_arg(int argc, char* argv[]){
 	int state = 0;
 	for (int k = 1; k < argc; k++){
 		if ((strcmp(argv[k],"-h") == 0) || (strcmp(argv[k], "-help") == 0) || (strcmp(argv[k], "--help") == 0)){
-			return 15;
+			state = 15;
 		}
 	}
 	return state;
