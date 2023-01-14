@@ -67,6 +67,8 @@ int main (int argc, char * argv[]){
 		state = 1;
 		if ((strcmp(argv[1],"-h") == 0) || (strcmp(argv[1], "-help") == 0)){
 			system("man ./manpage");
+			endwin();
+			lua_close(L);
 			return 1;
 		}
 	}
