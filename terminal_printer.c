@@ -16,6 +16,13 @@ void refresh_time(WINDOW* time_case, time_t start_time){
 		wrefresh(time_case);
 }
 
+void align_display(WINDOW* display, WINDOW* input){
+	int xd, yd;
+	getyx(display,yd,xd);
+	wmove(input, yd, xd);
+	wrefresh(input);
+}
+
 bool is_last(int max_caractere,WINDOW* window){
 	int x, y;
 	getyx(window,y,x);
@@ -29,6 +36,7 @@ void failed(uint8_t ch, WINDOW* window, WINDOW* time_case,WINDOW* display_text, 
 	/* wmove(display_text,y,x+1); */
 	waddch(display_text, *text);
 	wrefresh(display_text);
+	align_display(display_text, window);
 	int i = 1;
 	while (i > 0){
 		ch = wgetch(window);
