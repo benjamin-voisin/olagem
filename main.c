@@ -35,11 +35,15 @@ const uint8_t* get_text(lua_State* L, int max_caractere){
 
 
 
-int read_arg(int argc, char* argv[]){
+int read_arg(int argc, char* argv[], int* file_index){
 	int state = 0;
 	for (int k = 1; k < argc; k++){
 		if ((strcmp(argv[k],"-h") == 0) || (strcmp(argv[k], "-help") == 0) || (strcmp(argv[k], "--help") == 0)){
 			state = 15;
+		}
+		if (strcmp(argv[k], "-f") == 0 ){
+			*file_index = k + 1;
+			state = 11;
 		}
 	}
 	return state;
@@ -49,7 +53,10 @@ int main (int argc, char * argv[]){
 	initscr();
 	setlocale(LC_CTYPE,"");
 	lua_State *L = init_lua("lua/generateur.lua");
-	int state = read_arg(argc, argv);
+
+	int file_index = 0;
+	int state = read_arg(argc, argv, &file_index);
+
 	time_t start_time = time(NULL);
 	long int number_of_caractere = 0;
 	int max_caractere = COLS / 1.5;
@@ -73,12 +80,6 @@ int main (int argc, char * argv[]){
 				start_time = time(NULL);
 				long int maximal_time = max_time();
 				time_t actual_time;
-				if (argc > 1){
-					state = 11;
-					break;
-
-				}
-				else{
 				const uint8_t* first_sentence = get_text(L,max_caractere);
 				const uint8_t* second_sentence = get_text(L,max_caractere);
 				while(((actual_time = time(NULL)) - start_time) < maximal_time){
@@ -89,7 +90,6 @@ int main (int argc, char * argv[]){
 					second_sentence = get_text(L,max_caractere);
 				}					
 				state = 2;
-				}
 				break;
 
 			case 11 : //Game screen but when a file name is specified
@@ -98,44 +98,43 @@ int main (int argc, char * argv[]){
 				start_time = time(NULL);
 				maximal_time = max_time();
 
-					lua_State *file_reader = init_lua("lua/file_reader.lua");
+				lua_State *file_reader = init_lua("lua/file_reader.lua");
 
-					lua_getglobal(file_reader, "init_table");
-					lua_pushstring(file_reader, argv[1]);
-					lua_pushnumber(file_reader, max_caractere);
-					lua_pcall(file_reader, 2, 1, 0);
-					if (lua_isnil(file_reader, -1)){
-						printf("The file %s does not exist", argv[1]);
-						lua_close(file_reader);
-						endwin();
-						return 1;
-					}
-
-					const uint8_t* first_line;
-					const uint8_t* second_line;
-					int i = 0;
-					lua_getglobal(file_reader, "read_line");
-					lua_pushnumber(file_reader, 0);
-					lua_pcall(file_reader, 1, 1, 0);
-					while (!lua_isnil(file_reader, -1)) {
-						first_line = lua_tolstring(file_reader, -1, NULL);
-						lua_getglobal(file_reader, "read_line");
-						lua_pushnumber(file_reader, i + 1);
-						lua_pcall(file_reader, 1, 1, 0);
-						second_line = lua_tolstring(file_reader, -1, NULL);
-
-						number_of_caractere += start_screen(first_line, second_line, start_time, max_caractere);
-						clear();
-						i ++;
-						lua_getglobal(file_reader, "read_line");
-						lua_pushnumber(file_reader, i);
-						lua_pcall(file_reader, 1, 1, 0);
-
-
+				lua_getglobal(file_reader, "init_table");
+				lua_pushstring(file_reader, argv[file_index]);
+				lua_pushnumber(file_reader, max_caractere);
+				lua_pcall(file_reader, 2, 1, 0);
+				if (lua_isnil(file_reader, -1)){
+					printf("The file %s does not exist", argv[file_index]);
 					lua_close(file_reader);
-					state = 2;
+					endwin();
+					return 1;
 				}
 
+				const uint8_t* first_line;
+				const uint8_t* second_line;
+				int i = 0;
+				lua_getglobal(file_reader, "read_line");
+				lua_pushnumber(file_reader, 0);
+				lua_pcall(file_reader, 1, 1, 0);
+				while (!lua_isnil(file_reader, -1)) {
+					first_line = lua_tolstring(file_reader, -1, NULL);
+					lua_getglobal(file_reader, "read_line");
+					lua_pushnumber(file_reader, i + 1);
+					lua_pcall(file_reader, 1, 1, 0);
+					second_line = lua_tolstring(file_reader, -1, NULL);
+
+					number_of_caractere += start_screen(first_line, second_line, start_time, max_caractere);
+					clear();
+					i ++;
+					lua_getglobal(file_reader, "read_line");
+					lua_pushnumber(file_reader, i);
+					lua_pcall(file_reader, 1, 1, 0);
+
+
+				}
+
+				lua_close(file_reader);
 				state = 2;
 				break;
 
