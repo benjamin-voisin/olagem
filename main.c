@@ -33,26 +33,6 @@ const uint8_t* get_text(lua_State* L, int max_caractere){
 	return text;
 }
 
-uint8_t ** get_text_file(lua_State* L, int max_caractere, const char* file){
-	/* lua_getglobal(L, "file_reader"); */
-	/* lua_pushnumber(L, max_caractere); */
-	/* lua_pushstring(L, file); */
-	/* lua_pcall(L, 2, 2, 0); */
-	/* int number_of_sentences = lua_tonumber(L, -2); */
-	/* uint8_t text[number_of_sentences][max_caractere]; */
-	/* printf("%d\n", number_of_sentences); */
-	/* for (int k = 1; k <= number_of_sentences; k++){ */
-	/* 	lua_rawgeti(L, -1, k); */ 
-	/* 	uint8_t*  sentence = lua_tolstring(L, -1, NULL); */
-	/* 	lua_settop(L, -2); */
-	/* 	printf("%s\n", sentence); */
-	/* 	strcpy(text[k-1], sentence); */
-	/* } */
-	/* return text; */
-	return NULL;
-
-
-}
 
 
 int read_arg(int argc, char* argv[]){
