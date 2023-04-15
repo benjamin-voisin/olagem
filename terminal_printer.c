@@ -125,6 +125,7 @@ int start_screen(const uint8_t* first_sentence, const uint8_t* second_sentence, 
 		else{
 			if (ch != 10 && ch != 9 ){
 				if (ch == *first_sentence){ 
+					align_display(text_input, display_text);
 					waddch(text_input, ch);
 					wrefresh(text_input);
 					wattron(display_text, COLOR_PAIR(3));
