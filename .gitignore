@@ -3,3 +3,8 @@
 printer
 olagem
 settings.txt
+
+
+# Added by cargo
+
+/target
