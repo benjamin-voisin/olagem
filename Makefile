@@ -2,6 +2,11 @@ default: olagem
 
 install: olagem clean man
 	echo "max_time=60" > settings.txt
+	mkdir -p /usr/share/olagem
+	cp -r ./lua /usr/share/olagem
+	cp ./settings.txt /usr/share/olagem
+	cp ./text.txt /usr/share/olagem
+	cp ./olagem /usr/bin/
 
 man: 
 	cp manpage /usr/share/man/man6/olagem.6
