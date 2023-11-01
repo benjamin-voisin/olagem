@@ -1,6 +1,6 @@
 ## Project description
 
-This program is heavily inspired by the website 10FastFingers, wich provides an easy typing speed test. However, you just type random words. So the goal is to make a sentence generator in order to improve this.
+A terminal-based typing speed test.
 
 ## Installation
 
@@ -19,7 +19,7 @@ and you'r done !
 
 To start the program, type
 ```
-./olagem
+olagem
 ```
 in your terminal.
 
@@ -29,23 +29,14 @@ man olagem
 ```
 in your terminal, or with the `-h` flag :
 ```
-./olagem -h
+olagem -h
 ```
-
-### Make it accessible evrywhere
-
-You can use the command
-```
-echo "alias olagem='$PWD/olagem'" >> ~/.bashrc
-```
-to make the program olagem accessible in your terminal with the `olagem`command.
 
 ## State of the project
 
-The first version of the typing part is good. Now we just need a good generator.
+Working main program, but has many issues and some bugs. Needs a full rewrite (cpp or rust ?)
 
 ## Dependencies
 
 This project currently needs lua to run (made in lua 5.3 but supposedly works in 5.1).
-
 

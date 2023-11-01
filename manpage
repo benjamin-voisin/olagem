@@ -1,6 +1,6 @@
 .\" Manpage for olagem.
 .\" Contact benjamin.voisin@ens-rennes.fr to correct errors or typos.
-.TH man 6 "14 January 2023" "1.0" "olagem"
+.TH man 6 "1 november 2023" "1.0" "olagem"
 .SH NAME
 olagem \- typing-speed test game. 
 .SH SYNOPSIS
