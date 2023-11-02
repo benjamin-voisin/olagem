@@ -29,6 +29,8 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
         Line::styled(&app.second_sentence, Style::default().fg(Color::White))
         .alignment(Alignment::Left);
 
+    let height = frame.size().height;
+    let width = frame.size().width;
     frame.render_widget(
         Paragraph::new(vec![first_line, second_line])
         // Paragraph::new(
@@ -53,7 +55,7 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
         )
         .style(Style::default().fg(Color::White).bg(Color::Black))
         .alignment(Alignment::Left),
-        Rect::new(0, 0, 80, 4),
+        Rect::new(width/2 - 40, height / 2 - 2, 80, 4),
         // frame.size(),
     )
 }
