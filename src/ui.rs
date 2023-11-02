@@ -18,7 +18,7 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
     let first_line =
         Line::from(vec![
             Span::styled(&app.correctly_typed, Style::default().fg(Color::Green)),
-            Span::styled(&app.wrongly_typed, Style::default().fg(Color::Red)),
+            Span::styled(&app.wrongly_typed, Style::default().bg(Color::Red).fg(Color::Black)),
             Span::styled(&app.to_type, Style::default().fg(Color::White)),
         ]).alignment(Alignment::Left);
     let second_line =
