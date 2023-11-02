@@ -18,11 +18,10 @@ pub struct App {
 impl App {
     /// Constructs a new instance of [`App`].
     pub fn new() -> Self {
-        // Self::default()
         Self {
             running: true,
             counter: 0,
-            generator : Generator::new("french".to_string()),
+            generator : Generator::new("french"),
         }
     }
 
