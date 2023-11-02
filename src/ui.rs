@@ -4,7 +4,7 @@ use ratatui::{
     style::{Color, Style},
     widgets::{Block, BorderType, Borders, Paragraph},
     Frame, prelude::Rect,
-    prelude::{Span, Line}, text::Text,
+    prelude::{Span, Line},
 };
 
 use crate::app::App;
@@ -15,10 +15,6 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
     // See the following resources:
     // - https://docs.rs/ratatui/latest/ratatui/widgets/index.html
     // - https://github.com/ratatui-org/ratatui/tree/master/examples
-    // let first_sentence_colored = Span::styled(
-        // "first sencente green",
-        // Style::default().fg(Color::Green).bg(Color::Black)
-        // );
     let first_line =
         Line::from(vec![
             Span::styled(&app.correctly_typed, Style::default().fg(Color::Green)),
@@ -33,19 +29,6 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
     let width = frame.size().width;
     frame.render_widget(
         Paragraph::new(vec![first_line, second_line])
-        // Paragraph::new(
-        //     Line::from(vec![
-        //                Span::styled(&app.correctly_typed, Style::default().fg(Color::Green)),
-        //                Span::styled(&app.wrongly_typed, Style::default().fg(Color::Red)),
-        //                Span::styled(&app.to_type, Style::default().fg(Color::White)),
-        //                Span::styled("\n", Style::default().fg(Color::White)),
-        //                Span::styled(&app.second_sentence, Style::default().fg(Color::White)),
-        //     ]))
-        // Paragraph::new(format!(
-        //         "{}\n{}",
-        //     app.first_sentence,
-        //     app.second_sentence,
-        // ))
         .block(
             Block::default()
                 .title("olagem")

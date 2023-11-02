@@ -9,7 +9,7 @@ use std::io;
 
 use ratatui::{
     backend::CrosstermBackend,
-    Terminal, Frame,
+    Terminal,
 };
 
 fn main() -> AppResult<()> {
