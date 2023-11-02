@@ -6,10 +6,7 @@ use ratatui::{
     Frame,
 };
 
-use crate::{
-    app::App,
-    generator::generate_one_line,
-};
+use crate::app::App;
 
 /// Renders the user interface widgets.
 pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
@@ -26,7 +23,7 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
 
                 words : {}",
             app.counter,
-            generate_one_line().unwrap()
+            app.generator.generate_one_line(80).unwrap(),
         ))
         .block(
             Block::default()

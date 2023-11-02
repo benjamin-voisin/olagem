@@ -1,4 +1,5 @@
 use std::error;
+use crate::generator::Generator;
 
 /// Application result type.
 pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
@@ -10,21 +11,28 @@ pub struct App {
     pub running: bool,
     /// counter
     pub counter: u8,
+    /// generator
+    pub generator: Generator,
 }
 
-impl Default for App {
-    fn default() -> Self {
-        Self {
-            running: true,
-            counter: 0,
-        }
-    }
-}
+// impl Default for App {
+//     fn default() -> Self {
+//         Self {
+//             running: true,
+//             counter: 0,
+//         }
+//     }
+// }
 
 impl App {
     /// Constructs a new instance of [`App`].
     pub fn new() -> Self {
-        Self::default()
+        // Self::default()
+        Self {
+            running: true,
+            counter: 0,
+            generator : Generator::new("french".to_string()),
+        }
     }
 
     /// Handles the tick event of the terminal.
