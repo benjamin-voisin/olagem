@@ -91,8 +91,12 @@ impl App {
                 self.wrongly_typed = self.wrongly_typed.chars().take(wrongly_typed_length - 1).collect();
             }
             else {
+                // let correctly_typed_iter = self.correctly_typed.chars();
                 let correctly_typed_length = self.correctly_typed.chars().count();
+                let last_ch = self.correctly_typed.chars().last().unwrap();
                 self.correctly_typed = self.correctly_typed.chars().take(correctly_typed_length - 1).collect();
+                self.to_type = last_ch.to_string() + &self.to_type;
+
             }
         }
     }
