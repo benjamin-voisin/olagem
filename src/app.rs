@@ -1,4 +1,7 @@
-use std::{error, ops::Add};
+use std::{
+    error,
+    time::{Instant, Duration}
+};
 use crate::generator::Generator;
 
 /// Application result type.
@@ -23,6 +26,9 @@ pub struct App {
     /// current state
     pub cursor_position : usize,
     // pub typed_text : String,
+
+    pub start_time: Instant,
+    pub max_time: Duration,
 }
 
 impl App {
@@ -41,12 +47,19 @@ impl App {
             to_type: first_sentence,
             second_sentence,
             cursor_position : 0,
+
+            start_time: Instant::now(),
+            max_time: Duration::from_secs(60),
             // typed_text : String::new(),
         })
     }
 
     /// Handles the tick event of the terminal.
-    pub fn tick(&self) {}
+    pub fn tick(&mut self) {
+        if self.start_time.elapsed().as_secs() > self.max_time.as_secs() {
+            self.running = false;
+        }
+    }
 
     /// Set running to false to quit the application.
     pub fn quit(&mut self) {
@@ -54,7 +67,7 @@ impl App {
     }
 
     pub fn add_ch(&mut self, c: char) {
-        if c == self.to_type.chars().nth(0).unwrap() {
+        if c == self.to_type.chars().nth(0).unwrap() && self.wrongly_typed.len() == 0 {
             self.to_type.remove(0);
             self.correctly_typed.push(c);
         }
