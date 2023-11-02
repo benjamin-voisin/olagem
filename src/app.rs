@@ -13,16 +13,23 @@ pub struct App {
     pub counter: u8,
     /// generator
     pub generator: Generator,
+    pub first_sentence: String,
+    pub second_sentence : String,
 }
 
 impl App {
     /// Constructs a new instance of [`App`].
-    pub fn new() -> Self {
-        Self {
+    pub fn new(language : &str, max_length: usize) -> AppResult<Self> {
+        let mut generator = Generator::new(language);
+        let first_sentence = generator.generate_one_line(max_length)?;
+        let second_sentence = generator.generate_one_line(max_length)?;
+        Ok (Self {
             running: true,
             counter: 0,
-            generator : Generator::new("french"),
-        }
+            generator,
+            first_sentence,
+            second_sentence,
+        })
     }
 
     /// Handles the tick event of the terminal.

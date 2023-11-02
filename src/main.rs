@@ -14,7 +14,7 @@ use ratatui::{
 
 fn main() -> AppResult<()> {
     // Create an application.
-    let mut app = App::new();
+    let mut app = App::new("french", 80).unwrap();
 
     // Initialize the terminal user interface.
     let backend = CrosstermBackend::new(io::stderr());

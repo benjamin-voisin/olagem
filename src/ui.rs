@@ -21,9 +21,11 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
                 Press left and right to increment and decrement the counter respectively.\n\
                 Counter: {}\n\n
 
-                words : {}",
+                first sentence : {}\n
+                second sentence : {}",
             app.counter,
-            app.generator.generate_one_line(80).unwrap(),
+            app.first_sentence,
+            app.second_sentence
         ))
         .block(
             Block::default()

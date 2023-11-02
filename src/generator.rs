@@ -9,8 +9,8 @@ type WordList = Vec<String>;
 pub struct Generator {
     rng: ThreadRng,
     word_list : WordList,
-    language : String,
-    path : String,
+    // language : String,
+    // path : String,
 }
 
 
@@ -18,8 +18,8 @@ impl Generator {
     pub fn new(language : &str) -> Self {
         Self {
             rng : rand::thread_rng(),
-            language : language.to_string(),
-            path : language_to_path(language),
+            // language : language.to_string(),
+            // path : language_to_path(language),
             word_list : read_path(&language_to_path(language)).unwrap(),
         }
     }
