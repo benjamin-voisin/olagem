@@ -6,7 +6,10 @@ use ratatui::{
     Frame,
 };
 
-use crate::app::App;
+use crate::{
+    app::App,
+    generator::generate_one_line,
+};
 
 /// Renders the user interface widgets.
 pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
@@ -19,8 +22,11 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
             "This is a tui template.\n\
                 Press `Esc`, `Ctrl-C` or `q` to stop running.\n\
                 Press left and right to increment and decrement the counter respectively.\n\
-                Counter: {}",
-            app.counter
+                Counter: {}\n\n
+
+                words : {}",
+            app.counter,
+            generate_one_line().unwrap()
         ))
         .block(
             Block::default()

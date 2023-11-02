@@ -12,3 +12,6 @@ pub mod tui;
 
 /// Event handler.
 pub mod handler;
+
+/// Sentence generator.
+pub mod generator;
