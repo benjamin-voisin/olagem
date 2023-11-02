@@ -15,12 +15,12 @@ pub struct Generator {
 
 
 impl Generator {
-    pub fn new(language : String) -> Self {
+    pub fn new(language : &str) -> Self {
         Self {
             rng : rand::thread_rng(),
-            language : language.clone(),
-            path : language_to_path(&language.clone()),
-            word_list : read_path(&language_to_path(&language)).unwrap(),
+            language : language.to_string(),
+            path : language_to_path(language),
+            word_list : read_path(&language_to_path(language)).unwrap(),
         }
     }
 
