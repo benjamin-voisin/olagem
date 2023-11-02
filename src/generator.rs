@@ -30,7 +30,7 @@ impl Generator {
 
         loop {
             word = &self.word_list[self.rng.gen_range(0..self.word_list.len())];
-            if words.chars().count() + word.chars().count() > max_length {
+            if words.chars().count() + word.chars().count() + 2 > max_length {
                 break
             }
             words.push_str(word);
