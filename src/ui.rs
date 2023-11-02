@@ -55,7 +55,6 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) {
         )
         .style(Style::default().fg(Color::White).bg(Color::Black))
         .alignment(Alignment::Left),
-        Rect::new(width/2 - 40, height / 2 - 2, 80, 4),
-        // frame.size(),
+        Rect::new(width/2 - (width / 3), height / 2 - 2, (width / 3) * 2, 4),
     )
 }
