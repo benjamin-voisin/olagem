@@ -40,7 +40,18 @@ pub fn render_test<B: Backend>(app: &mut App, frame: &mut Frame) {
         .style(Style::default().fg(Color::White).bg(Color::Black))
         .alignment(Alignment::Left),
         Rect::new(width/2 - (width / 3), height / 2 - 2, (width / 3) * 2, 4),
-    )
+    );
+    frame.render_widget(
+        Paragraph::new(format!("{}", testapp.max_time.as_secs() - testapp.start_time.elapsed().as_secs()))
+        .block(
+            Block::default()
+            .borders(Borders::ALL).border_type(BorderType::Rounded)
+            )
+        ,
+        // Block::new().title("protu").borders(Borders::ALL).border_type(BorderType::Rounded),
+        Rect::new(width / 2 - (width / 3) - 5, height / 2 - 2, 5, 3)
+        );
+    
 }
 
 pub fn render_menu<B: Backend>(app: &mut App, frame: &mut Frame) {
