@@ -31,6 +31,8 @@ pub struct TestApp {
 
     pub start_time: Instant,
     pub max_time: Duration,
+
+    pub total_typed: usize,
 }
 
 impl TestApp {
@@ -51,6 +53,7 @@ impl TestApp {
 
             start_time: Instant::now(),
             max_time,
+            total_typed: 0,
         })
     }
 
@@ -70,6 +73,7 @@ impl TestApp {
         if c == self.to_type.chars().nth(0).unwrap() && self.wrongly_typed.len() == 0 {
             self.to_type.remove(0);
             self.correctly_typed.push(c);
+            self.total_typed += 1;
         }
         else {
             self.wrongly_typed.push(c);
@@ -96,6 +100,7 @@ impl TestApp {
                 let last_ch = self.correctly_typed.chars().last().unwrap();
                 self.correctly_typed = self.correctly_typed.chars().take(correctly_typed_length - 1).collect();
                 self.to_type = last_ch.to_string() + &self.to_type;
+                self.total_typed -= 1;
 
             }
         }

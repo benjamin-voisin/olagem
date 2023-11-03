@@ -59,6 +59,24 @@ fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
 }
 
 fn result_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    match key_event.code {
+        KeyCode::Char('r') => {
+            if key_event.modifiers == KeyModifiers::CONTROL {
+                app.start_test()?;
+            }
+        },
+
+        KeyCode::Esc => {
+            app.quit();
+        }
+
+        KeyCode::Char('c') | KeyCode::Char('C') => {
+            if key_event.modifiers == KeyModifiers::CONTROL {
+                app.quit()
+            }
+        }
+        _ => ()
+    }
     Ok(())
 }
 

@@ -2,7 +2,7 @@ use std::error;
 
 use crate::{
     testapp::TestApp,
-    settings::Settings,
+    settings::Settings, results::Results,
 };
 
 /// Application result type.
@@ -25,6 +25,7 @@ pub struct App {
     pub status: AppStatus,
     pub testapp: Option<TestApp>,
     pub settings: Settings,
+    pub results: Results,
 }
 
 impl App {
@@ -35,6 +36,7 @@ impl App {
             status: AppStatus::Menu,
             testapp: None,
             settings: Settings::new(),
+            results: Results::new(),
         })
     }
 
@@ -49,7 +51,7 @@ impl App {
         match &mut self.testapp {
             None => (),
             Some(testapp) =>
-                if testapp.start_time.elapsed().as_secs() > testapp.max_time.as_secs() { self.stop_test() }
+                if testapp.start_time.elapsed() > testapp.max_time { self.stop_test() }
             
         }
     }
@@ -61,7 +63,10 @@ impl App {
     }
 
     fn stop_test(&mut self) {
-        self.status = AppStatus::Menu;
+        self.status = AppStatus::Results;
+        let testapp = self.testapp.as_ref().unwrap();
+        self.results.typed = testapp.total_typed;
+        self.results.time = testapp.start_time.elapsed();
         self.testapp = None;
     }
 }

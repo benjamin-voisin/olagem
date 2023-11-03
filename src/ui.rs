@@ -56,3 +56,18 @@ pub fn render_menu<B: Backend>(app: &mut App, frame: &mut Frame) {
         frame.size()
         )
 }
+
+pub fn render_resluts<B: Backend>(app: &mut App, frame: &mut Frame) {
+    frame.render_widget(
+        
+        Paragraph::new(format!("Congratulation, you typed {} words in {:?} seconds !\n
+                               Press CTRL+r to restart.", app.results.typed, app.results.time.as_secs()))
+        .block(
+            Block::default()
+                .title("olagem")
+                .title_alignment(Alignment::Center)
+                .borders(Borders::ALL)
+                .border_type(BorderType::Rounded)),
+        frame.size()
+        )
+}

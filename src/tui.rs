@@ -65,7 +65,7 @@ impl<B: Backend> Tui<B> {
         match app.status {
             AppStatus::Menu => self.terminal.draw(|frame| ui::render_menu::<B>(app, frame))?,
             AppStatus::Settings => panic!("Settings : to be implemented"),
-            AppStatus::Results => panic!("Results : to be implemented"),
+            AppStatus::Results => self.terminal.draw(|frame| ui::render_resluts::<B>(app, frame))?,
             AppStatus::Test => self.terminal.draw(|frame| ui::render_test::<B>(app, frame))?,
         };
 

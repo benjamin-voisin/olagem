@@ -28,7 +28,7 @@ fn main() -> AppResult<()> {
 
     app.settings.set_language("french");
     app.settings.set_max_length(((width / 3) * 2).into());
-    app.settings.set_max_duration(5);
+    app.settings.set_max_duration(60);
     // Start the main loop.
     while app.running {
         // Render the user interface.
