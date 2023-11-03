@@ -30,14 +30,14 @@ pub struct App {
 
 impl App {
     /// Constructs a new instance of [`App`].
-    pub fn new() -> AppResult<Self> {
-        Ok (Self {
+    pub fn new() -> Self {
+        Self {
             running: true,
             status: AppStatus::Menu,
             testapp: None,
             settings: Settings::new(),
             results: Results::new(),
-        })
+        }
     }
 
     /// Set running to false to quit the application.

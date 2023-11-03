@@ -24,7 +24,7 @@ fn main() -> AppResult<()> {
     let mut tui = Tui::new(terminal, events);
     tui.init()?;
 
-    let mut app = App::new().unwrap();
+    let mut app = App::new();
 
     app.settings.set_language("french");
     app.settings.set_max_length(((width / 3) * 2).into());
