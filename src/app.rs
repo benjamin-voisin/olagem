@@ -43,19 +43,25 @@ impl App {
         self.running = false;
     }
 
+
     /// Handles the tick event of the terminal.
     pub fn tick(&mut self) {
         match &mut self.testapp {
             None => (),
             Some(testapp) =>
-                if testapp.start_time.elapsed().as_secs() > testapp.max_time.as_secs() {testapp.running = false}
+                if testapp.start_time.elapsed().as_secs() > testapp.max_time.as_secs() { self.stop_test() }
             
         }
     }
 
     pub fn start_test(&mut self) -> AppResult<()>{
-        self.testapp = Some(TestApp::new(&self.settings.language, self.settings.max_length)?);
+        self.testapp = Some(TestApp::new(&self.settings.language, self.settings.max_length, self.settings.max_time)?);
         self.status = AppStatus::Test;
         Ok(())
+    }
+
+    fn stop_test(&mut self) {
+        self.status = AppStatus::Menu;
+        self.testapp = None;
     }
 }

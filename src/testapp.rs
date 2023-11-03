@@ -34,7 +34,7 @@ pub struct TestApp {
 }
 
 impl TestApp {
-    pub fn new(language : &str, max_length: usize) -> AppResult<Self> {
+    pub fn new(language : &str, max_length: usize, max_time: Duration) -> AppResult<Self> {
         let mut generator = Generator::new(language);
         let first_sentence = generator.generate_one_line(max_length)?;
         let second_sentence = generator.generate_one_line(max_length)?;
@@ -50,7 +50,7 @@ impl TestApp {
             cursor_position : 0,
 
             start_time: Instant::now(),
-            max_time: Duration::from_secs(60),
+            max_time,
         })
     }
 
