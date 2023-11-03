@@ -76,7 +76,14 @@ impl TestApp {
             self.total_typed += 1;
         }
         else {
-            self.wrongly_typed.push(c);
+            // On met dans wrongly_typed le premier élément de to_type, qu'on enlève
+            // let car = self.to_type.chars().nth(0).unwrap();
+            let mut to_type_iter = self.to_type.chars();
+            let car = to_type_iter.next().unwrap();
+            self.wrongly_typed.push(car);
+            self.to_type = to_type_iter.collect();
+
+            // self.to_type = self.to_type.chars().next();
         }
         if self.to_type.len() == 0 {
             self.to_type = self.second_sentence.to_owned();
@@ -91,7 +98,11 @@ impl TestApp {
         if self.cursor_position > 0 {
             self.cursor_position -= 1;
             if self.wrongly_typed.len() > 0 {
+                // let mut wrongly_typed_iter = self.wrongly_typed.chars();
                 let wrongly_typed_length = self.wrongly_typed.chars().count();
+                let car = self.wrongly_typed.chars().last().unwrap();
+                self.to_type = String::from(car) + &self.to_type;
+                // self.wrongly_typed = wrongly_typed_iter.collect();
                 self.wrongly_typed = self.wrongly_typed.chars().take(wrongly_typed_length - 1).collect();
             }
             else {
