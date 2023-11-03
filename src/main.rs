@@ -18,13 +18,13 @@ fn main() -> AppResult<()> {
     // Initialize the terminal user interface.
     let backend = CrosstermBackend::new(io::stderr());
     let terminal = Terminal::new(backend)?;
-    let width = terminal.size()?.width;
+    // let width = terminal.size()?.width;
 
     let events = EventHandler::new(250);
     let mut tui = Tui::new(terminal, events);
     tui.init()?;
 
-    let mut app = App::new("french", ((width/ 3)*2).try_into().unwrap()).unwrap();
+    let mut app = App::new().unwrap();
     // Start the main loop.
     while app.running {
         // Render the user interface.

@@ -1,5 +1,5 @@
 use crate::{
-    app::{App, AppResult},
+    app::{App, AppResult, AppStatus},
     event::EventHandler,
     ui,
 };
@@ -62,7 +62,13 @@ impl<B: Backend> Tui<B> {
     /// [`Draw`]: tui::Terminal::draw
     /// [`rendering`]: crate::ui:render
     pub fn draw(&mut self, app: &mut App) -> AppResult<()> {
-        self.terminal.draw(|frame| ui::render::<B>(app, frame))?;
+        match app.status {
+            AppStatus::Menu => self.terminal.draw(|frame| ui::render_menu::<B>(app, frame))?,
+            AppStatus::Settings => panic!("Settings : to be implemented"),
+            AppStatus::Results => panic!("Results : to be implemented"),
+            AppStatus::Test => self.terminal.draw(|frame| ui::render_test::<B>(app, frame))?,
+        };
+
         Ok(())
     }
 

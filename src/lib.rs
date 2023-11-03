@@ -15,3 +15,8 @@ pub mod handler;
 
 /// Sentence generator.
 pub mod generator;
+
+/// For the typing test part.
+pub mod testapp;
+
+pub mod settings;

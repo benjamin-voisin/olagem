@@ -1,9 +1,28 @@
-use crate::app::{App, AppResult};
+use crate::app::{App, AppResult, AppStatus};
 
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 
-/// Handles the key events and updates the state of [`App`].
-pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+fn menu_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    match key_event.code {
+        KeyCode::Esc => {
+            app.quit();
+        },
+
+        KeyCode::Char('c') | KeyCode::Char('C') => {
+            if key_event.modifiers == KeyModifiers::CONTROL {
+                app.quit();
+            }
+        }
+
+        KeyCode::Char('s') => {
+            app.start_test().unwrap()
+        }
+        _ => ()
+    }
+    Ok(())
+}
+
+fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     match key_event.code {
         // Exit application on `ESC`
         KeyCode::Esc  => {
@@ -14,16 +33,47 @@ pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
             if key_event.modifiers == KeyModifiers::CONTROL {
                 app.quit();
             }
-            else { app.add_ch('c'); }
+            else { 
+                match &mut app.testapp {
+                    None => (),
+                    Some(testapp) => testapp.add_ch('c')
+                }
+            }
         }
         KeyCode::Char(c) => {
-            app.add_ch(c);
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) => testapp.add_ch(c)
+            }
         }
         KeyCode::Backspace => {
-            app.delete_ch();
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) => testapp.delete_ch(),
+            }
         }
         // Other handlers you could add here.
         _ => {}
+    }
+    Ok(())
+}
+
+fn result_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    Ok(())
+}
+
+fn settings_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    Ok(())
+}
+
+/// Handles the key events and updates the state of [`App`].
+pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    match app.status {
+        AppStatus::Menu => menu_hande_key_event(key_event, app)?,
+        AppStatus::Test => test_hande_key_event(key_event, app)?,
+        AppStatus::Results => result_hande_key_event(key_event, app)?,
+        AppStatus::Settings => settings_hande_key_event(key_event, app)?,
+
     }
     Ok(())
 }
