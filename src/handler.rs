@@ -81,6 +81,19 @@ fn result_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
 }
 
 fn settings_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    match key_event.code {
+        KeyCode::Char('c') | KeyCode::Char('C') => {
+            if key_event.modifiers == KeyModifiers::CONTROL {
+                app.quit()
+            }
+        }
+
+        KeyCode::Esc => {
+            app.quit();
+        }
+
+        _ => ()
+    }
     Ok(())
 }
 
