@@ -1,7 +1,6 @@
-use std::fs;
-use std::str;
+use std::{fs,str};
 use rand::{Rng, rngs::ThreadRng};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use crate::app::AppResult;
 
