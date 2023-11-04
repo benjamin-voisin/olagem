@@ -18,7 +18,7 @@ jobs:
         toolchain:
           - stable
           - beta
-          - nigthly
+          - nightly
 
     steps:
     - uses: actions/checkout@v3
