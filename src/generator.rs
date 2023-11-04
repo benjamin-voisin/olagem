@@ -24,13 +24,13 @@ impl Generator {
         }
     }
 
-    pub fn generate_one_line(&mut self, max_length : usize) -> AppResult<String>{
+    pub fn generate_one_line(&mut self, max_length : u16) -> AppResult<String>{
         let mut words = String::new();
         let mut word : &str;
 
         loop {
             word = &self.word_list[self.rng.gen_range(0..self.word_list.len())];
-            if words.chars().count() + word.chars().count() + 2 > max_length {
+            if words.chars().count() + word.chars().count() + 2 > max_length.into() {
                 break
             }
             words.push_str(word);

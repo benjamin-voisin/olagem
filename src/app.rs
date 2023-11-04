@@ -68,5 +68,6 @@ impl App {
         self.results.typed = testapp.total_typed;
         self.results.time = testapp.start_time.elapsed();
         self.testapp = None;
+        self.results.set_wpm();
     }
 }

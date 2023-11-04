@@ -71,8 +71,8 @@ pub fn render_menu<B: Backend>(app: &mut App, frame: &mut Frame) {
 pub fn render_resluts<B: Backend>(app: &mut App, frame: &mut Frame) {
     frame.render_widget(
         
-        Paragraph::new(format!("Congratulation, you typed {} words in {:?} seconds !\n
-                               Press CTRL+r to restart.", app.results.typed, app.results.time.as_secs()))
+        Paragraph::new(format!("Congratulation, you typed {} words in {:?} seconds !. This translate to {} WPM on the website 10FastFingers.\n
+                               Press CTRL+r to restart.", app.results.typed, app.results.time.as_secs(), app.results.wpm))
         .block(
             Block::default()
                 .title("olagem")

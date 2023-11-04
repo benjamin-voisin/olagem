@@ -3,7 +3,7 @@ use std::time::Duration;
 
 #[derive(Debug)]
 pub struct Settings {
-    pub max_length: usize,
+    pub max_length: u16,
     pub language: String,
     pub max_time : Duration,
 }
@@ -27,11 +27,11 @@ impl Settings {
         self.language = language.to_string();
     }
 
-    pub fn set_max_length(&mut self, max_length: usize) {
+    pub fn set_max_length(&mut self, max_length: u16) {
         self.max_length = max_length;
     }
 
-    pub fn set_max_duration(&mut self, max_time: usize) {
-        self.max_time = Duration::from_secs(max_time as u64);
+    pub fn set_max_duration(&mut self, max_time: u64) {
+        self.max_time = Duration::from_secs(max_time);
     }
 }

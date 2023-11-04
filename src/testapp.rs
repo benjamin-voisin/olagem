@@ -21,22 +21,22 @@ pub enum AppStatus {
 pub struct TestApp {
     pub running: bool,
     pub generator: Generator,
-    pub max_length: usize,
+    pub max_length: u16,
     pub correctly_typed: String,
     pub wrongly_typed: String,
     pub to_type: String,
 
     pub second_sentence : String,
-    pub cursor_position : usize,
+    pub cursor_position : u16,
 
     pub start_time: Instant,
     pub max_time: Duration,
 
-    pub total_typed: usize,
+    pub total_typed: u32,
 }
 
 impl TestApp {
-    pub fn new(language : &str, max_length: usize, max_time: Duration) -> AppResult<Self> {
+    pub fn new(language : &str, max_length: u16, max_time: Duration) -> AppResult<Self> {
         let mut generator = Generator::new(language);
         let first_sentence = generator.generate_one_line(max_length)?;
         let second_sentence = generator.generate_one_line(max_length)?;
