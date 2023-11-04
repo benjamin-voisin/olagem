@@ -9,3 +9,9 @@ edition = "2021"
 crossterm = "0.27.0"
 ratatui = "0.24.0"
 rand = "*"
+dirs = "^5.0"
+
+
+
+[build-dependencies]
+dirs = "^5.0"

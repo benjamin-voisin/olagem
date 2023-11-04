@@ -1,5 +1,7 @@
 use std::fs;
+use std::str;
 use rand::{Rng, rngs::ThreadRng};
+use std::path::{Path, PathBuf};
 
 use crate::app::AppResult;
 
@@ -20,7 +22,10 @@ impl Generator {
             rng : rand::thread_rng(),
             // language : language.to_string(),
             // path : language_to_path(language),
-            word_list : read_path(&language_to_path(language)).unwrap(),
+    // let install_path = dirs::config_dir()
+        // .expect("Couldn't find a configuration directory to install to.")
+        // .join("olagem");
+            word_list : read_path(language_to_path(language)).unwrap(),
         }
     }
 
@@ -41,13 +46,20 @@ impl Generator {
     }
 }
 
-fn language_to_path(language : &str) -> String {
-    format!("/usr/share/olagem/language/{}", language)
+fn language_to_path(language : &str) -> Box<PathBuf> {
+    Box::new(dirs::config_dir()
+                .expect("Couldn't find the configuration file, supposedly at ~/.config/olagem.")
+                .join("olagem")
+                .join("language")
+                .join(language))
 }
 
-fn read_path(path : &str) -> AppResult<WordList> {
-    let contents = fs::read_to_string(path)?;
+fn read_path(path : Box<PathBuf> ) -> AppResult<WordList> {
+    // panic!("{:?}", path);
+    let contents: Vec<u8> = fs::read(*path).expect("The config file for the specified language does not exists in ~/.config/olagem/language");
 
-    let word_vector : Vec<String> = contents.split('\n').map(|w| w.to_string()).collect();
+    let contents_string = str::from_utf8(&contents).unwrap().to_string();
+
+    let word_vector : Vec<String> = (contents_string).split('\n').map(|w| w.to_string()).collect();
     Ok(word_vector)
 }
