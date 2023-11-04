@@ -14,3 +14,13 @@ And then
 ./target/release/olagem
 ```
 to start the program.
+
+You can copy the binary to `/usr/bin` with
+```
+sudo cp ./target/release/olagem /usr/bin/olagem
+```
+
+and then access the program simply with
+```
+olagem
+```
