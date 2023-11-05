@@ -47,6 +47,8 @@ fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
                 Some(testapp) =>  {testapp.delete_ch();},
             }
         }
+        
+        // Check for CTRL+BACKSPACE (for some reason it is not supported the same way as CTRL+C
         KeyCode::Char('h') if key_event.modifiers.contains(KeyModifiers::CONTROL) => {
             match &mut app.testapp {
                 None => (),
@@ -60,7 +62,7 @@ fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
                 Some(testapp) => testapp.add_ch(c)
             }
         }
-        // Other handlers you could add here.
+
         _ => {}
     }
     Ok(())
