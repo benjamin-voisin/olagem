@@ -40,16 +40,18 @@ fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
                 }
             }
         }
+
+        KeyCode::Backspace => {
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) =>  {testapp.delete_ch();},
+            }
+        }
+        KeyCode::Backspace => {
         KeyCode::Char(c) => {
             match &mut app.testapp {
                 None => (),
                 Some(testapp) => testapp.add_ch(c)
-            }
-        }
-        KeyCode::Backspace => {
-            match &mut app.testapp {
-                None => (),
-                Some(testapp) => testapp.delete_ch(),
             }
         }
         // Other handlers you could add here.

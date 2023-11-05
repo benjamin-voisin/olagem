@@ -94,7 +94,7 @@ impl TestApp {
         self.cursor_position += 1;
     }
 
-    pub fn delete_ch(&mut self) {
+    pub fn delete_ch(&mut self) -> Option<char>{
         if self.cursor_position > 0 {
             self.cursor_position -= 1;
             if self.wrongly_typed.len() > 0 {
@@ -104,6 +104,7 @@ impl TestApp {
                 self.to_type = String::from(car) + &self.to_type;
                 // self.wrongly_typed = wrongly_typed_iter.collect();
                 self.wrongly_typed = self.wrongly_typed.chars().take(wrongly_typed_length - 1).collect();
+                Some(car)
             }
             else {
                 // let correctly_typed_iter = self.correctly_typed.chars();
@@ -112,8 +113,12 @@ impl TestApp {
                 self.correctly_typed = self.correctly_typed.chars().take(correctly_typed_length - 1).collect();
                 self.to_type = last_ch.to_string() + &self.to_type;
                 self.total_typed -= 1;
+                Some(last_ch)
 
             }
+        }
+        else {
+            None
         }
     }
 
