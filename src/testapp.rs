@@ -123,7 +123,8 @@ impl TestApp {
     }
 
     pub fn delete_word(&mut self) {
-        let mut last_ch: Option<char> = self.delete_ch();
+        self.delete_ch();
+        let mut last_ch: Option<char>;
         loop {
             last_ch = self.delete_ch();
             match last_ch {
