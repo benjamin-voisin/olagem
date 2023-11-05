@@ -47,7 +47,13 @@ fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
                 Some(testapp) =>  {testapp.delete_ch();},
             }
         }
-        KeyCode::Backspace => {
+        KeyCode::Char('h') if key_event.modifiers.contains(KeyModifiers::CONTROL) => {
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) => testapp.delete_word()
+            }
+        }
+        
         KeyCode::Char(c) => {
             match &mut app.testapp {
                 None => (),

@@ -122,4 +122,16 @@ impl TestApp {
         }
     }
 
+    pub fn delete_word(&mut self) {
+        let mut last_ch: Option<char> = self.delete_ch();
+        loop {
+            last_ch = self.delete_ch();
+            match last_ch {
+                None => break,
+                Some(' ') => {self.add_ch(' ');break;},
+                Some(_c) => (),
+            }
+        }
+    }
+
 }
