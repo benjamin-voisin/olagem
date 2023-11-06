@@ -2,8 +2,11 @@
 name = "olagem"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Typing speed test in the terminal"
+author = ["Benjamin Voisin <benjamin.voisin@ens-rennes.fr>"]
+readme = "README.md"
+repository = "https://github.com/benjamin-voisin/olagem.git"
+homepage = "https://github.com/benjamin-voisin/olagem.git"
 licence = "CC-BY-SA-4.0"
 licence-file = "LICENCE"
 
