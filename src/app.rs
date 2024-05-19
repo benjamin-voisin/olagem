@@ -72,10 +72,15 @@ impl App {
 
     fn stop_test(&mut self) {
         self.status = AppStatus::Results;
-        let testapp = self.testapp.as_ref().unwrap();
-        self.results.typed = testapp.total_typed;
-        self.results.time = testapp.start_time.elapsed();
-        self.testapp = None;
-        self.results.set_wpm();
+        let testapp_opt = self.testapp.as_ref();
+        match testapp_opt {
+            Some(testapp) => {
+                self.results.typed = testapp.total_typed;
+                self.results.time = testapp.start_time.elapsed();
+                self.testapp = None;
+                self.results.set_wpm();
+            },
+            None => self.panic(Box::from("Unable to convert testapp to ref")),
+        }
     }
 }
