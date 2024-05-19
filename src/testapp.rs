@@ -37,7 +37,7 @@ pub struct TestApp {
 
 impl TestApp {
     pub fn new(language : &str, max_length: u16, max_time: Duration) -> AppResult<Self> {
-        let mut generator = Generator::new(language);
+        let mut generator = Generator::new(language)?;
         let first_sentence = generator.generate_one_line(max_length)?;
         let second_sentence = generator.generate_one_line(max_length)?;
         Ok (Self {
@@ -100,7 +100,7 @@ impl TestApp {
             self.to_type = self.second_sentence.to_owned();
             self.correctly_typed = String::new();
             self.wrongly_typed = String::new();
-            self.second_sentence = self.generator.generate_one_line(self.max_length).unwrap();
+            self.second_sentence = self.generator.generate_one_line(self.max_length)?;
             self.cursor_position = 0;
         }
         Ok(())
