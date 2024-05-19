@@ -10,8 +10,6 @@ type WordList = Vec<String>;
 pub struct Generator {
     rng: ThreadRng,
     word_list : WordList,
-    // language : String,
-    // path : String,
 }
 
 
@@ -56,7 +54,6 @@ fn language_to_path(language : &str) -> AppResult<Box<PathBuf>> {
 }
 
 fn read_path(path : Box<PathBuf> ) -> AppResult<WordList> {
-    // panic!("{:?}", path);
     let contents: Vec<u8> = fs::read(*path).expect("The config file for the specified language does not exists in ~/.config/olagem/language");
 
     let contents_string = str::from_utf8(&contents)?.to_string();

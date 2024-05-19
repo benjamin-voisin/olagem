@@ -50,7 +50,6 @@ pub fn render_test<B: Backend>(app: &mut App, frame: &mut Frame) -> AppResult<()
                     .borders(Borders::ALL).border_type(BorderType::Rounded)
                     )
                 ,
-                // Block::new().title("protu").borders(Borders::ALL).border_type(BorderType::Rounded),
                 Rect::new(width / 2 - (width / 3) - 5, height / 2 - 2, 5, 3)
                 );
             Ok(())

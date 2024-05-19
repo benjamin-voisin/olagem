@@ -110,7 +110,6 @@ impl TestApp {
         if self.cursor_position > 0 {
             self.cursor_position -= 1;
             if self.wrongly_typed.len() > 0 {
-                // let mut wrongly_typed_iter = self.wrongly_typed.chars();
                 let wrongly_typed_length = self.wrongly_typed.chars().count();
                 let car_opt = self.wrongly_typed.chars().last();
                 match car_opt {
@@ -123,7 +122,6 @@ impl TestApp {
                 car_opt
             }
             else {
-                // let correctly_typed_iter = self.correctly_typed.chars();
                 let correctly_typed_length = self.correctly_typed.chars().count();
                 let last_ch_opt = self.correctly_typed.chars().last();
                 match last_ch_opt {
