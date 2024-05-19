@@ -2,7 +2,7 @@ use crate::app::{App, AppResult, AppStatus};
 
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 
-fn menu_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+fn panic_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     match key_event.code {
         KeyCode::Esc => {
             app.quit();
@@ -15,14 +15,35 @@ fn menu_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
         }
 
         KeyCode::Char('s') => {
-            app.start_test().unwrap()
+            app.start_test().unwrap_or_else(|err| app.panic(err));
         }
         _ => ()
     }
     Ok(())
 }
 
-fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+
+fn menu_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    match key_event.code {
+        KeyCode::Esc => {
+            app.quit();
+        },
+
+        KeyCode::Char('c') | KeyCode::Char('C') => {
+            if key_event.modifiers == KeyModifiers::CONTROL {
+                app.quit();
+            }
+        }
+
+        KeyCode::Char('s') => {
+            app.start_test().unwrap_or_else(|err| app.panic(err));
+        }
+        _ => ()
+    }
+    Ok(())
+}
+
+fn test_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     match key_event.code {
         // Exit application on `ESC`
         KeyCode::Esc  => {
@@ -68,7 +89,7 @@ fn test_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     Ok(())
 }
 
-fn result_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+fn result_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     match key_event.code {
         KeyCode::Char('r') => {
             if key_event.modifiers == KeyModifiers::CONTROL {
@@ -90,7 +111,7 @@ fn result_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     Ok(())
 }
 
-fn settings_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+fn settings_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     match key_event.code {
         KeyCode::Char('c') | KeyCode::Char('C') => {
             if key_event.modifiers == KeyModifiers::CONTROL {
@@ -110,11 +131,11 @@ fn settings_hande_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()>
 /// Handles the key events and updates the state of [`App`].
 pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
     match app.status {
-        AppStatus::Menu => menu_hande_key_event(key_event, app)?,
-        AppStatus::Test => test_hande_key_event(key_event, app)?,
-        AppStatus::Results => result_hande_key_event(key_event, app)?,
-        AppStatus::Settings => settings_hande_key_event(key_event, app)?,
-
+        AppStatus::Menu => menu_handle_key_event(key_event, app)?,
+        AppStatus::Test => test_handle_key_event(key_event, app)?,
+        AppStatus::Results => result_handle_key_event(key_event, app)?,
+        AppStatus::Settings => settings_handle_key_event(key_event, app)?,
+        AppStatus::Panic => panic_handle_key_event(key_event, app)?,
     }
     Ok(())
 }

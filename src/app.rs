@@ -14,6 +14,7 @@ pub enum AppStatus {
     Settings,
     Test,
     Results,
+    Panic,
 }
 
 /// Application.
@@ -26,6 +27,7 @@ pub struct App {
     pub testapp: Option<TestApp>,
     pub settings: Settings,
     pub results: Results,
+    pub error: Box<dyn error::Error>,
 }
 
 impl App {
@@ -37,6 +39,7 @@ impl App {
             testapp: None,
             settings: Settings::new(),
             results: Results::new(),
+            error: Box::from("No errors"),
         }
     }
 
@@ -54,6 +57,11 @@ impl App {
                 if testapp.start_time.elapsed() > testapp.max_time { self.stop_test() }
             
         }
+    }
+
+    pub fn panic(&mut self, error: Box<dyn error::Error>) -> () {
+        self.error = error;
+        self.status = AppStatus::Panic;
     }
 
     pub fn start_test(&mut self) -> AppResult<()>{

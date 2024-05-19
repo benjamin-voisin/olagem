@@ -66,7 +66,8 @@ impl<B: Backend> Tui<B> {
             AppStatus::Menu => self.terminal.draw(|frame| ui::render_menu::<B>(app, frame))?,
             AppStatus::Settings => panic!("Settings : to be implemented"),
             AppStatus::Results => self.terminal.draw(|frame| ui::render_resluts::<B>(app, frame))?,
-            AppStatus::Test => self.terminal.draw(|frame| ui::render_test::<B>(app, frame))?,
+            AppStatus::Test => self.terminal.draw(|frame| ui::render_test::<B>(app, frame).expect("Unable to render test frame"))?,
+            AppStatus::Panic => self.terminal.draw(|frame| ui::render_panic::<B>(app, frame))?,
         };
 
         Ok(())
