@@ -69,23 +69,32 @@ impl TestApp {
         self.running = false;
     }
 
-    pub fn add_ch(&mut self, c: char) {
-        if c == self.to_type.chars().nth(0).unwrap() && self.wrongly_typed.len() == 0 {
-            self.to_type.remove(0);
-            self.correctly_typed.push(c);
-            self.total_typed += 1;
-            self.cursor_position += 1;
-        }
-        else {
-            // On met dans wrongly_typed le premier élément de to_type, qu'on enlève
-            // let car = self.to_type.chars().nth(0).unwrap();
-            let mut to_type_iter = self.to_type.chars();
-            let car = to_type_iter.next().unwrap();
-            self.wrongly_typed.push(car);
-            self.to_type = to_type_iter.collect();
-            self.cursor_position += 1;
+    pub fn add_ch(&mut self, c: char) -> AppResult<()> {
+        let to_type_opt = self.to_type.chars().nth(0);
+        match to_type_opt {
+            Some(to_type) => {
+                if c == to_type && self.wrongly_typed.len() == 0 {
+                    self.to_type.remove(0);
+                    self.correctly_typed.push(c);
+                    self.total_typed += 1;
+                    self.cursor_position += 1;
+                }
+                else {
+                    // On met dans wrongly_typed le premier élément de to_type, qu'on enlève
+                    let mut to_type_iter = self.to_type.chars();
+                    let car_opt = to_type_iter.next();
+                    match car_opt {
+                        Some(car) => {
+                            self.wrongly_typed.push(car);
+                            self.to_type = to_type_iter.collect();
+                            self.cursor_position += 1;
+                        },
+                        None => ()
+                    }
 
-            // self.to_type = self.to_type.chars().next();
+                }
+            },
+            None => (),
         }
         if self.to_type.len() == 0 {
             self.to_type = self.second_sentence.to_owned();
@@ -94,6 +103,7 @@ impl TestApp {
             self.second_sentence = self.generator.generate_one_line(self.max_length).unwrap();
             self.cursor_position = 0;
         }
+        Ok(())
     }
 
     pub fn delete_ch(&mut self) -> Option<char>{
@@ -102,20 +112,29 @@ impl TestApp {
             if self.wrongly_typed.len() > 0 {
                 // let mut wrongly_typed_iter = self.wrongly_typed.chars();
                 let wrongly_typed_length = self.wrongly_typed.chars().count();
-                let car = self.wrongly_typed.chars().last().unwrap();
-                self.to_type = String::from(car) + &self.to_type;
-                // self.wrongly_typed = wrongly_typed_iter.collect();
-                self.wrongly_typed = self.wrongly_typed.chars().take(wrongly_typed_length - 1).collect();
-                Some(car)
+                let car_opt = self.wrongly_typed.chars().last();
+                match car_opt {
+                    Some(car) => {
+                        self.to_type = String::from(car) + &self.to_type;
+                        self.wrongly_typed = self.wrongly_typed.chars().take(wrongly_typed_length - 1).collect();
+                    },
+                    None => (),
+                }
+                car_opt
             }
             else {
                 // let correctly_typed_iter = self.correctly_typed.chars();
                 let correctly_typed_length = self.correctly_typed.chars().count();
-                let last_ch = self.correctly_typed.chars().last().unwrap();
-                self.correctly_typed = self.correctly_typed.chars().take(correctly_typed_length - 1).collect();
-                self.to_type = last_ch.to_string() + &self.to_type;
-                self.total_typed -= 1;
-                Some(last_ch)
+                let last_ch_opt = self.correctly_typed.chars().last();
+                match last_ch_opt {
+                    Some(last_ch) => {
+                        self.correctly_typed = self.correctly_typed.chars().take(correctly_typed_length - 1).collect();
+                        self.to_type = last_ch.to_string() + &self.to_type;
+                        self.total_typed -= 1;
+                    },
+                    None => (),
+                }
+                last_ch_opt
 
             }
         }
@@ -124,14 +143,14 @@ impl TestApp {
         }
     }
 
-    pub fn delete_word(&mut self) {
+    pub fn delete_word(&mut self) -> AppResult<()>{
         self.delete_ch();
         let mut last_ch: Option<char>;
         loop {
             last_ch = self.delete_ch();
             match last_ch {
-                None => break,
-                Some(' ') => {self.add_ch(' ');break;},
+                None => return Ok(()),
+                Some(' ') => {self.add_ch(' ')?; return Ok(())},
                 Some(_c) => (),
             }
         }

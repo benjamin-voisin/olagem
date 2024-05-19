@@ -57,7 +57,7 @@ fn test_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
             else { 
                 match &mut app.testapp {
                     None => (),
-                    Some(testapp) => testapp.add_ch('c')
+                    Some(testapp) => testapp.add_ch('c')?
                 }
             }
         }
@@ -73,14 +73,14 @@ fn test_handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
         KeyCode::Char('h') if key_event.modifiers.contains(KeyModifiers::CONTROL) => {
             match &mut app.testapp {
                 None => (),
-                Some(testapp) => testapp.delete_word()
+                Some(testapp) => testapp.delete_word()?
             }
         }
         
         KeyCode::Char(c) => {
             match &mut app.testapp {
                 None => (),
-                Some(testapp) => testapp.add_ch(c)
+                Some(testapp) => testapp.add_ch(c)?
             }
         }
 
