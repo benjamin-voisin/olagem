@@ -74,6 +74,7 @@ impl TestApp {
             self.to_type.remove(0);
             self.correctly_typed.push(c);
             self.total_typed += 1;
+            self.cursor_position += 1;
         }
         else {
             // On met dans wrongly_typed le premier élément de to_type, qu'on enlève
@@ -82,6 +83,7 @@ impl TestApp {
             let car = to_type_iter.next().unwrap();
             self.wrongly_typed.push(car);
             self.to_type = to_type_iter.collect();
+            self.cursor_position += 1;
 
             // self.to_type = self.to_type.chars().next();
         }
@@ -90,8 +92,8 @@ impl TestApp {
             self.correctly_typed = String::new();
             self.wrongly_typed = String::new();
             self.second_sentence = self.generator.generate_one_line(self.max_length).unwrap();
+            self.cursor_position = 0;
         }
-        self.cursor_position += 1;
     }
 
     pub fn delete_ch(&mut self) -> Option<char>{
