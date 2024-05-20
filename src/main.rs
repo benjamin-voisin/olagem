@@ -1,7 +1,7 @@
 use olagem::{
-    app::{App, AppResult},
+    app::{App, AppResult, AppStatus},
     event::{Event, EventHandler},
-    handler::handle_key_events,
+    views,
     tui::Tui,
 };
 
@@ -32,11 +32,22 @@ fn main() -> AppResult<()> {
     // Start the main loop.
     while app.running {
         // Render the user interface.
-        tui.draw(&mut app)?;
+        match tui.draw(&mut app) {
+            Ok(()) => (),
+            Err(err) => app.panic(err),
+        }
         // Handle events.
         match tui.events.next()? {
             Event::Tick => app.tick(),
-            Event::Key(key_event) => handle_key_events(key_event, &mut app)?,
+            Event::Key(key_event) => {
+                match app.status {
+                    AppStatus::Menu => views::menu::handle_key_event(key_event, &mut app)?,
+                    AppStatus::Test => views::test::handle_key_event(key_event, &mut app)?,
+                    AppStatus::Results => views::results::handle_key_event(key_event, &mut app)?,
+                    AppStatus::Settings => views::settings::handle_key_event(key_event, &mut app)?,
+                    AppStatus::Panic => views::panic::handle_key_event(key_event, &mut app)?,
+                }
+            },
             Event::Mouse(_) => {}
             Event::Resize(_, _) => {}
         }

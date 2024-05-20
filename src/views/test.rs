@@ -1,3 +1,6 @@
+use crate::app::{App, AppResult};
+
+use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
 use ratatui::{
     backend::Backend,
     layout::Alignment,
@@ -7,10 +10,54 @@ use ratatui::{
     prelude::{Span, Line},
 };
 
-use crate::app::{App, AppResult};
+pub fn handle_key_event(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
+    match key_event.code {
+        // Exit application on `ESC`
+        KeyCode::Esc  => {
+            app.quit();
+        }
+        // Exit application on `Ctrl-C`
+        KeyCode::Char('c') | KeyCode::Char('C') => {
+            if key_event.modifiers == KeyModifiers::CONTROL {
+                app.quit();
+            }
+            else { 
+                match &mut app.testapp {
+                    None => (),
+                    Some(testapp) => testapp.add_ch('c')?
+                }
+            }
+        }
+
+        KeyCode::Backspace => {
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) =>  {testapp.delete_ch();},
+            }
+        }
+        
+        // Check for CTRL+BACKSPACE (for some reason it is not supported the same way as CTRL+C
+        KeyCode::Char('h') if key_event.modifiers.contains(KeyModifiers::CONTROL) => {
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) => testapp.delete_word()?
+            }
+        }
+        
+        KeyCode::Char(c) => {
+            match &mut app.testapp {
+                None => (),
+                Some(testapp) => testapp.add_ch(c)?
+            }
+        }
+
+        _ => {}
+    }
+    Ok(())
+}
 
 /// Renders the user interface widgets.
-pub fn render_test<B: Backend>(app: &mut App, frame: &mut Frame) -> AppResult<()> {
+pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) -> AppResult<()> {
     // This is where you add new widgets.
     // See the following resources:
     // - https://docs.rs/ratatui/latest/ratatui/widgets/index.html
@@ -57,47 +104,4 @@ pub fn render_test<B: Backend>(app: &mut App, frame: &mut Frame) -> AppResult<()
         None => Err(Box::from("Unable to take testapp as ref")),
     }
 
-}
-
-pub fn render_menu<B: Backend>(app: &mut App, frame: &mut Frame) {
-    frame.render_widget(
-        
-        Paragraph::new(format!("Welcome to Olagem !\n{:?}", app.status))
-        .block(
-            Block::default()
-                .title("olagem")
-                .title_alignment(Alignment::Center)
-                .borders(Borders::ALL)
-                .border_type(BorderType::Rounded)),
-        frame.size()
-        )
-}
-
-pub fn render_panic<B: Backend>(app: &mut App, frame: &mut Frame) {
-    frame.render_widget(
-        
-        Paragraph::new(format!("{}", app.error))
-        .block(
-            Block::default()
-                .title("olagem")
-                .title_alignment(Alignment::Center)
-                .borders(Borders::ALL)
-                .border_type(BorderType::Rounded)),
-        frame.size()
-        )
-}
-
-pub fn render_resluts<B: Backend>(app: &mut App, frame: &mut Frame) {
-    frame.render_widget(
-        
-        Paragraph::new(format!("Congratulation, you typed {} words in {:?} seconds !. This translate to {} WPM on the website 10FastFingers.\n
-                               Press CTRL+r to restart.", app.results.typed, app.results.time.as_secs(), app.results.wpm))
-        .block(
-            Block::default()
-                .title("olagem")
-                .title_alignment(Alignment::Center)
-                .borders(Borders::ALL)
-                .border_type(BorderType::Rounded)),
-        frame.size()
-        )
 }

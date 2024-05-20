@@ -1,7 +1,7 @@
 use crate::{
     app::{App, AppResult, AppStatus},
+    views,
     event::EventHandler,
-    ui,
 };
 
 use std::{
@@ -63,11 +63,11 @@ impl<B: Backend> Tui<B> {
     /// [`rendering`]: crate::ui:render
     pub fn draw(&mut self, app: &mut App) -> AppResult<()> {
         match app.status {
-            AppStatus::Menu => self.terminal.draw(|frame| ui::render_menu::<B>(app, frame))?,
-            AppStatus::Settings => panic!("Settings : to be implemented"),
-            AppStatus::Results => self.terminal.draw(|frame| ui::render_resluts::<B>(app, frame))?,
-            AppStatus::Test => self.terminal.draw(|frame| ui::render_test::<B>(app, frame).expect("Unable to render test frame"))?,
-            AppStatus::Panic => self.terminal.draw(|frame| ui::render_panic::<B>(app, frame))?,
+            AppStatus::Menu => self.terminal.draw(|frame| views::menu::render::<B>(app, frame))?,
+            AppStatus::Settings => return Err(Box::from("Settings not yet implemented")),
+            AppStatus::Results => self.terminal.draw(|frame| views::results::render::<B>(app, frame))?,
+            AppStatus::Test => self.terminal.draw(|frame| views::test::render::<B>(app, frame).expect("Unable to render test frame"))?,
+            AppStatus::Panic => self.terminal.draw(|frame| views::panic::render::<B>(app, frame))?,
         };
 
         Ok(())

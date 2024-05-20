@@ -70,6 +70,11 @@ impl App {
         Ok(())
     }
 
+    pub fn go_to_settings(&mut self) -> AppResult<()> {
+        self.status = AppStatus::Settings;
+        Ok(())
+    }
+
     fn stop_test(&mut self) {
         self.status = AppStatus::Results;
         let testapp_opt = self.testapp.as_ref();
