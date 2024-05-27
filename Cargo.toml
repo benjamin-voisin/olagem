@@ -12,7 +12,7 @@ license = "CC-BY-SA-4.0"
 [dependencies]
 crossterm = "0.27.0"
 ratatui = "0.24.0"
-rand = "*"
+rand = "0.8.5"
 dirs = "^5.0"
 
 
