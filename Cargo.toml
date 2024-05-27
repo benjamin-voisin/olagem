@@ -7,8 +7,7 @@ author = ["Benjamin Voisin <benjamin.voisin@ens-rennes.fr>"]
 readme = "README.md"
 repository = "https://github.com/benjamin-voisin/olagem.git"
 homepage = "https://github.com/benjamin-voisin/olagem.git"
-licence = "CC-BY-SA-4.0"
-licence-file = "LICENCE"
+license = "CC-BY-SA-4.0"
 
 [dependencies]
 crossterm = "0.27.0"
