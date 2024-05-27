@@ -1,6 +1,6 @@
 [package]
 name = "olagem"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Typing speed test in the terminal"
 author = ["Benjamin Voisin <benjamin.voisin@ens-rennes.fr>"]
