@@ -86,7 +86,7 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame) -> AppResult<()> {
                     .borders(Borders::ALL)
                     .border_type(BorderType::Rounded),
                     )
-                .style(Style::default().fg(Color::White))
+                .style(Style::default())
                 .alignment(Alignment::Left),
                 Rect::new(width/2 - (width / 3), height / 2 - 2, (width / 3) * 2, 4),
                 );
