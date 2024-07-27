@@ -1,6 +1,8 @@
 ![Crates.io Downloads (recent)](https://img.shields.io/crates/dr/olagem?link=https%3A%2F%2Fperso.eleves.ens-rennes.fr%2Fpeople%2Fbenjamin.voisin%2F)
-![Crates.io License](https://img.shields.io/crates/l/olagem)
+![Licence](https://img.shields.io/aur/license/olagem)
 ![Crates.io Version](https://img.shields.io/crates/v/olagem)
+![AUR Version](https://img.shields.io/aur/version/olagem)
+
 
 # olagem
 
@@ -8,9 +10,14 @@ A simple and beautiful terminal based typing speed test.
 
 ## Installation
 
-The package is available on [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html), so you can install it with
+The package is available on the AUR and on [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html), so you can install it with
 ```shell
 cargo install olagem
+```
+
+Or, if you are on Arch, (replace `yay` with your favorite AUR helper)
+```shell
+yay -S olagem
 ```
 
 ### Build from source
