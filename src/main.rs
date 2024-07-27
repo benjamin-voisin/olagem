@@ -3,6 +3,7 @@ use olagem::{
     event::{Event, EventHandler},
     views,
     tui::Tui,
+    config,
 };
 
 use std::io;
@@ -13,6 +14,12 @@ use ratatui::{
 };
 
 fn main() -> AppResult<()> {
+
+    // Check if config dir exists
+    if !config::exist_config_dir()? {
+        // Copy files from /usr/share/olagem to CONFIG_DIR/olagem
+        config::copy_to_config_dir()?;
+    };
     // Create an application.
 
     // Initialize the terminal user interface.

@@ -18,3 +18,5 @@ pub mod settings;
 pub mod results;
 
 pub mod views;
+
+pub mod config;
