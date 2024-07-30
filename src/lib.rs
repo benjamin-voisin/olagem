@@ -20,3 +20,5 @@ pub mod results;
 pub mod views;
 
 pub mod config;
+
+pub mod stats;
