@@ -2,7 +2,6 @@ use std::error;
 
 use std::fs::OpenOptions;
 use std::io::prelude::*;
-use chrono;
 
 use crate::{
     results::Results, settings::Settings, testapp::{self, TestApp}
@@ -92,8 +91,7 @@ impl App {
                     )
                     .unwrap();
 
-                writeln!(result_file, "{};{};{:?};{}",
-                    chrono::offset::Local::now(),
+                writeln!(result_file, "{};{:?};{}",
                     self.settings.language,
                     testapp.start_time.elapsed(),
                     testapp.total_typed
