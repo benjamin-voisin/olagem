@@ -8,6 +8,14 @@
 
 A simple and beautiful terminal based typing speed test.
 
+## Features
+
+- Beautiful TUI
+- Proper Unicode support
+- French and English out of the box
+- Add any language you want
+- See your progression with a nice chart !
+
 ## Installation
 
 The package is available on the AUR and on [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html), so you can install it with
