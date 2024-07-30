@@ -13,19 +13,25 @@ use ratatui::{
     Terminal,
 };
 
+fn print_help() {
+    let options = [["-h", "print help"], ["-v", "version"]];
+    println!("olagem, a typing-speed test");
+    println!("Usage: olagem [OPTIONS]");
+    for option in options.iter() {
+        println!("\t{} {}", option[0], option[1])
+    }
+}
+
 fn parcour_arguments() {
     let args: Vec<String> = env::args().collect();
     for arg in args.iter() {
         match arg.as_str() {
-            "-h" => {
-                println!("olagem, a typing-speed test");
-                exit(0)
-            },
+            "-h" => { print_help(); exit(0) },
             "-v" => {
                 println!("olagem v0.1.2");
                 exit(0)
             }
-            _ => (),
+            _ => { print_help(); exit(1) },
         }
     }
 }
