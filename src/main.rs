@@ -6,12 +6,29 @@ use olagem::{
     config,
 };
 
-use std::io;
+use std::{env, io, process::exit};
 
 use ratatui::{
     backend::CrosstermBackend,
     Terminal,
 };
+
+fn parcour_arguments() {
+    let args: Vec<String> = env::args().collect();
+    for arg in args.iter() {
+        match arg.as_str() {
+            "-h" => {
+                println!("olagem, a typing-speed test");
+                exit(0)
+            },
+            "-v" => {
+                println!("olagem v0.1.2");
+                exit(0)
+            }
+            _ => (),
+        }
+    }
+}
 
 fn main() -> AppResult<()> {
 
@@ -27,11 +44,14 @@ fn main() -> AppResult<()> {
     let terminal = Terminal::new(backend)?;
     let width = terminal.size()?.width;
 
+
+    let mut app = App::new();
+
+    parcour_arguments();
+
     let events = EventHandler::new(250);
     let mut tui = Tui::new(terminal, events);
     tui.init()?;
-
-    let mut app = App::new();
 
     app.settings.set_max_length(((width / 3) * 2).into());
     // Start the main loop.
