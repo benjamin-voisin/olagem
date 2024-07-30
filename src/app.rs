@@ -91,9 +91,9 @@ impl App {
                     )
                     .unwrap();
 
-                writeln!(result_file, "{};{:?};{}",
+                writeln!(result_file, "{},{},{}",
                     self.settings.language,
-                    testapp.start_time.elapsed(),
+                    testapp.start_time.elapsed().as_secs(),
                     testapp.total_typed
                 ).unwrap();
                 self.results.typed = testapp.total_typed;
