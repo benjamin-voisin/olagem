@@ -4,7 +4,7 @@ use std::fs::OpenOptions;
 use std::io::prelude::*;
 
 use crate::{
-    results::Results, settings::Settings, testapp::{self, TestApp}
+    results::Results, settings::Settings, testapp::TestApp
 };
 
 /// Application result type.
