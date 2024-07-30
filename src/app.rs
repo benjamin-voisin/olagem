@@ -1,8 +1,11 @@
 use std::error;
 
+use std::fs::OpenOptions;
+use std::io::prelude::*;
+use chrono;
+
 use crate::{
-    testapp::TestApp,
-    settings::Settings, results::Results,
+    results::Results, settings::Settings, testapp::{self, TestApp}
 };
 
 /// Application result type.
@@ -80,6 +83,21 @@ impl App {
         let testapp_opt = self.testapp.as_ref();
         match testapp_opt {
             Some(testapp) => {
+                // Write results as csv to a file
+                let mut result_file = OpenOptions::new()
+                    .write(true)
+                    .append(true)
+                    .open(
+                        dirs::config_dir().unwrap().join("olagem/results.csv")
+                    )
+                    .unwrap();
+
+                writeln!(result_file, "{};{};{:?};{}",
+                    chrono::offset::Local::now(),
+                    self.settings.language,
+                    testapp.start_time.elapsed(),
+                    testapp.total_typed
+                ).unwrap();
                 self.results.typed = testapp.total_typed;
                 self.results.time = testapp.start_time.elapsed();
                 self.testapp = None;
