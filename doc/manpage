@@ -1,0 +1,17 @@
+.\" Manpage for olagem.
+.\" Contact benjamin.voisin@ens-rennes.fr to correct errors or typos.
+.TH man 6 "30 July 2024" "0.1.2" "olagem"
+.SH NAME
+olagem \- typing-speed test game. 
+.SH SYNOPSIS
+olagem
+[\fI\,OPTIONS\/\fR]... 
+.SH DESCRIPTION
+.PP
+A typing speed test game.
+.SH OPTIONS
+.TP
+\fB\-h,\-\-help\fR
+display help.
+.SH AUTHOR
+Benjamin Voisin (benjamin.voisin@ens-rennes.fr)
