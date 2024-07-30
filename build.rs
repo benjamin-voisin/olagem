@@ -37,19 +37,35 @@ fn copy<U: AsRef<Path>, V: AsRef<Path>>(from: U, to: V) -> std::io::Result<()> {
     Ok(())
 }
 
+pub fn exist_config_dir() -> Result<bool, std::io::Error> {
+    let config_dir = dirs::config_dir()
+        .expect("No config directories found... exiting.");
+    let result = fs::read_dir(config_dir)?.fold(
+        false,
+        |acc, e| {match e {
+            Ok(entry) => acc || (entry.file_name() == "olagem"),
+            Err(_) => false,
+        }}
+    );
+    Ok(result)
+}
+
 // #[allow(unused_must_use)]
 fn main() -> std::io::Result<()> {
-    let install_path = dirs::config_dir()
-        .expect("Couldn't find a configuration directory to install to.")
-        .join("olagem");
-    // let install_path = Path::new("/usr/share/olagem/");
-    fs::create_dir_all(&install_path).expect("Couldn't create the directory");
 
-    let resources_path = env::current_dir()
-        .expect("Couldn't find the source directory.")
-        .join("assets");
+    if ! exist_config_dir()? {
+        let install_path = dirs::config_dir()
+            .expect("Couldn't find a configuration directory to install to.")
+            .join("olagem");
+        // let install_path = Path::new("/usr/share/olagem/");
+        fs::create_dir_all(&install_path).expect("Couldn't create the directory");
+
+        let resources_path = env::current_dir()
+            .expect("Couldn't find the source directory.")
+            .join("assets");
         // .join("runtime");
-    copy(resources_path, &install_path).expect("Couldn't copy the assets files");
+        copy(resources_path, &install_path).expect("Couldn't copy the assets files");
+    }
 
     Ok(())
 }
