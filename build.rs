@@ -53,18 +53,21 @@ pub fn exist_config_dir() -> Result<bool, std::io::Error> {
 // #[allow(unused_must_use)]
 fn main() -> std::io::Result<()> {
 
-    if ! exist_config_dir()? {
-        let install_path = dirs::config_dir()
-            .expect("Couldn't find a configuration directory to install to.")
-            .join("olagem");
-        // let install_path = Path::new("/usr/share/olagem/");
-        fs::create_dir_all(&install_path).expect("Couldn't create the directory");
+    match exist_config_dir() {
+        Ok(false) => {
+            let install_path = dirs::config_dir()
+                .expect("Couldn't find a configuration directory to install to.")
+                .join("olagem");
+            // let install_path = Path::new("/usr/share/olagem/");
+            fs::create_dir_all(&install_path).expect("Couldn't create the directory");
 
-        let resources_path = env::current_dir()
-            .expect("Couldn't find the source directory.")
-            .join("assets");
-        // .join("runtime");
-        copy(resources_path, &install_path).expect("Couldn't copy the assets files");
+            let resources_path = env::current_dir()
+                .expect("Couldn't find the source directory.")
+                .join("assets");
+            // .join("runtime");
+            copy(resources_path, &install_path).expect("Couldn't copy the assets files");
+        },
+        _ => (),
     }
 
     Ok(())
